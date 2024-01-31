@@ -5,7 +5,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,17 +33,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RandomMealFragment extends Fragment implements RandomMealView ,CategoryMealView,OnCategoryClickListener{
+public class HomeFragment extends Fragment implements RandomMealView ,CategoryMealView,OnCategoryClickListener{
     RandomMealPresenterView randomMealPresenterView;
     private Context context;
     private MealCategoryAdapter categoryAdapter;
     private RecyclerView  recyclerView;
     List <MealsItem>mealsItemList;
     private ImageView image;
-    private TextView title;
+    private TextView mealName;
+    private TextView mealCountry;
     private RandomMealPresenterView presenterView;
     private CategoryMealPresenterView categoryMealPresenterView;
     private  LinearLayoutManager linearLayoutManager;
+
+    CardView randomCardView;
 
 
     @Override
@@ -54,10 +59,10 @@ public class RandomMealFragment extends Fragment implements RandomMealView ,Cate
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_random_meal, container, false);
         image = view.findViewById(R.id.RandomImage);
-        title = view.findViewById(R.id.tvRandom);
+        mealName = view.findViewById(R.id.tvRandom);
+        mealCountry = view.findViewById(R.id.tvCountry);
         presenterView = new RandomMealPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance()));
         presenterView.getMeal();
-
         return view;
 
     }
@@ -66,6 +71,7 @@ public class RandomMealFragment extends Fragment implements RandomMealView ,Cate
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.categoryRecyclerView);
+        randomCardView = view.findViewById(R.id.cardView);
 
         linearLayoutManager = new LinearLayoutManager(requireActivity());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -75,13 +81,24 @@ public class RandomMealFragment extends Fragment implements RandomMealView ,Cate
         recyclerView.setAdapter(categoryAdapter);
         categoryMealPresenterView = new CategoryMealPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance()));
         categoryMealPresenterView.getCategory();
+
+
     }
 
     @Override
     public void showData(List<MealsItem> mealsItemList) {
         MealsItem item = mealsItemList.get(0);
-        title.setText(item.getStrMeal());
+        mealName.setText(item.getStrMeal());
+        mealCountry.setText(item.getStrArea());
         Glide.with(requireContext()).load(item.getStrMealThumb()).into(image);
+        randomCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("item", item);
+                Navigation.findNavController(v).navigate(R.id.mealDetailsFragment, bundle);
+            }
+        });
     }
 
     @Override

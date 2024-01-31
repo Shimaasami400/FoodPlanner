@@ -7,7 +7,35 @@
 
     <fragment
         android:id="@+id/randomMealFragment"
-        android:name="com.example.foodplanner.home.view.RandomMealFragment"
+        android:name="com.example.foodplanner.home.view.HomeFragment"
         android:label="fragment_random_meal"
-        tools:layout="@layout/fragment_random_meal" />
+        tools:layout="@layout/fragment_random_meal" >
+        <action
+            android:id="@+id/action_randomMealFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealDetailsFragment"
+        android:name="com.example.foodplanner.mealdetail.MealDetailsFragment"
+        android:label="fragment_meal_details"
+        tools:layout="@layout/fragment_meal_details" >
+        <argument
+            android:name="meal"
+            app:argType="com.example.foodplanner.model.dto.MealsItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/calenderFragment2"
+        android:name="com.example.foodplanner.CalenderFragment"
+        android:label="fragment_calender"
+        tools:layout="@layout/fragment_calender" />
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.foodplanner.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.foodplanner.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>
