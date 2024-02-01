@@ -6,14 +6,14 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="104dp"
-        android:layout_height="27dp"
+        android:id="@+id/txtArea"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="72dp"
         android:text="TextView"
-        android:textStyle="bold"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

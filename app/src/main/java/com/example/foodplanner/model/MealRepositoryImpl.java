@@ -1,6 +1,8 @@
 package com.example.foodplanner.model;
 
+import com.example.foodplanner.model.network.AreaMealCallback;
 import com.example.foodplanner.model.network.CategoryCallBack;
+import com.example.foodplanner.model.network.IngredientsCallback;
 import com.example.foodplanner.model.network.MealRemoteDataSourceImpl;
 import com.example.foodplanner.model.network.RandomMealCallback;
 
@@ -27,6 +29,16 @@ public class MealRepositoryImpl implements MealRepositoryView{
     @Override
     public void CategoryNetworkCall(CategoryCallBack categoryCallBack) {
         mealRemoteDataSource.CategoryNetworkCall(categoryCallBack);
+    }
+
+    @Override
+    public void IngredientsNetworkCall(IngredientsCallback ingredientsCallback) {
+        mealRemoteDataSource.IngredientsNetworkCall(ingredientsCallback);
+    }
+
+    @Override
+    public void AreasNetworkCall(AreaMealCallback areaMealCallback) {
+        mealRemoteDataSource.AreasNetworkCall(areaMealCallback);
     }
 
 

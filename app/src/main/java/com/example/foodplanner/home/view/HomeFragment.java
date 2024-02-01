@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
     public void showCategoryData(List<CategoriesItem> categoriesItemList) {
         categoryAdapter.setList(categoriesItemList);
         categoryAdapter.notifyDataSetChanged();
-        Toast.makeText(requireActivity(),"Success"+categoriesItemList.size(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireActivity(),"Success: "+categoriesItemList.size(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
