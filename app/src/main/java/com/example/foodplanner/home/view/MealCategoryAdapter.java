@@ -18,7 +18,7 @@ import java.util.List;
 
 public class MealCategoryAdapter extends RecyclerView.Adapter<MealCategoryAdapter.ViewHolder>{
     private Context context;
-    List<CategoriesItem> categoriesItemList;
+     private List<CategoriesItem> categoriesItemList;
     private OnCategoryClickListener categoryClickListener;
     public MealCategoryAdapter(Context context, List<CategoriesItem> categoriesItemList, OnCategoryClickListener categoryClickListener) {
         this.context = context;
@@ -55,6 +55,7 @@ public class MealCategoryAdapter extends RecyclerView.Adapter<MealCategoryAdapte
 
     @Override
     public int getItemCount() {
+        System.out.println("size of cat list:"+categoriesItemList.size());
         return categoriesItemList.size();
     }
 

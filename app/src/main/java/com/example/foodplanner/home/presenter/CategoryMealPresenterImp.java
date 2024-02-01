@@ -11,6 +11,7 @@ public class CategoryMealPresenterImp implements CategoryMealPresenterView, Cate
     private final CategoryMealView categoryMealView;
     private final MealRepositoryView repositoryView;
 
+
     public CategoryMealPresenterImp(CategoryMealView categoryMealView, MealRepositoryView repositoryView){
         this.categoryMealView = categoryMealView;
         this.repositoryView = repositoryView;

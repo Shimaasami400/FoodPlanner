@@ -1,6 +1,8 @@
 package com.example.foodplanner.model.network;
 
+import com.example.foodplanner.model.dto.AreaItemResponse;
 import com.example.foodplanner.model.dto.CategoriesItemResponse;
+import com.example.foodplanner.model.dto.IngredientsItemResponse;
 import com.example.foodplanner.model.dto.MealsItemResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,6 +37,7 @@ public class MealRemoteDataSourceImpl implements MealRemoteDataSource{
         return mealRemoteDataSource;
     }
 
+
     @Override
     public void RandomMealNetworkCall(RandomMealCallback networkCallback) {
         Call<MealsItemResponse> call = mealService.getRandomMeal();
@@ -54,7 +57,6 @@ public class MealRemoteDataSourceImpl implements MealRemoteDataSource{
                 t.printStackTrace();
             }
         });
-
     }
 
     public void CategoryNetworkCall(CategoryCallBack categoryCallBack){
@@ -75,6 +77,50 @@ public class MealRemoteDataSourceImpl implements MealRemoteDataSource{
                 t.printStackTrace();
             }
         });
+    }
 
+    @Override
+    public void IngredientsNetworkCall(IngredientsCallback ingredientsCallback) {
+        Call<IngredientsItemResponse> call = mealService.getIngredients();
+        call.enqueue(new Callback<IngredientsItemResponse>() {
+            @Override
+            public void onResponse(Call<IngredientsItemResponse> call, Response<IngredientsItemResponse> response) {
+                if (response.isSuccessful()) {
+                    //4.calling the methods inside the interface
+                    ingredientsCallback.onSuccessResult(response.body().getIngredientList());
+                    System.out.println("response.body().getIngredientList()" +response.body().getIngredientList());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IngredientsItemResponse> call, Throwable t) {
+                //4
+                ingredientsCallback.onFailureResult(t.getMessage());
+                t.printStackTrace();
+            }
+        });
+
+    }
+
+    @Override
+    public void AreasNetworkCall(AreaMealCallback areaMealCallback) {
+        Call<AreaItemResponse> call = mealService.getAreas();
+        call.enqueue(new Callback<AreaItemResponse>() {
+            @Override
+            public void onResponse(Call<AreaItemResponse> call, Response<AreaItemResponse> response) {
+                if (response.isSuccessful()) {
+                    //4.calling the methods inside the interface
+                    areaMealCallback.onSuccessResult(response.body().getAreasList());
+                    System.out.println("response.body().getIngredientList()" +response.body().getAreasList());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AreaItemResponse> call, Throwable t) {
+                //4
+                areaMealCallback.onFailureResult(t.getMessage());
+                t.printStackTrace();
+            }
+        });
     }
 }
