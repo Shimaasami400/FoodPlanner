@@ -1,4 +1,4 @@
-package com.example.foodplanner.model.network;
+package com.example.foodplanner.model.network.network;
 
 public interface MealRemoteDataSource {
     public void RandomMealNetworkCall(RandomMealCallback networkCallback);

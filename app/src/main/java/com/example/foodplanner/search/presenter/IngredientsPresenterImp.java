@@ -2,7 +2,7 @@ package com.example.foodplanner.search.presenter;
 
 import com.example.foodplanner.model.MealRepositoryView;
 import com.example.foodplanner.model.dto.IngredientsItem;
-import com.example.foodplanner.model.network.IngredientsCallback;
+import com.example.foodplanner.model.network.network.IngredientsCallback;
 import com.example.foodplanner.search.view.IngredientsView;
 
 import java.util.List;

@@ -63,8 +63,8 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
         private TextView txtingredientName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ingredientImage = itemView.findViewById(R.id.imageViewIngredientImageItem);
-            txtingredientName = itemView.findViewById(R.id.textViewIngredientNameItem);
+            ingredientImage = itemView.findViewById(R.id.Ingrident_imageView_card);
+            txtingredientName = itemView.findViewById(R.id.cateroryName_textView_card);
         }
     }
 }

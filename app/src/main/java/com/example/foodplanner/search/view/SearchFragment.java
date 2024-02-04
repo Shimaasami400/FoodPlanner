@@ -18,14 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodplanner.R;
-import com.example.foodplanner.home.presenter.CategoryMealPresenterImp;
-import com.example.foodplanner.home.presenter.RandomMealPresenterImp;
-import com.example.foodplanner.home.view.MealCategoryAdapter;
 import com.example.foodplanner.model.MealRepositoryImpl;
 import com.example.foodplanner.model.dto.AreaItem;
 import com.example.foodplanner.model.dto.IngredientsItem;
-import com.example.foodplanner.model.dto.MealsItem;
-import com.example.foodplanner.model.network.MealRemoteDataSourceImpl;
+import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
+import com.example.foodplanner.model.network.network.MealRemoteDataSourceImpl;
 import com.example.foodplanner.search.presenter.AreasPresenterImp;
 import com.example.foodplanner.search.presenter.AreasPresenterView;
 import com.example.foodplanner.search.presenter.IngredientsPresenterImp;
@@ -63,10 +60,10 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-        ingredientsPresenterView = new IngredientsPresenterImp(this, MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance()));
+        ingredientsPresenterView = new IngredientsPresenterImp(this, MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(), MealLocalDataSourceImpl.getInstance(requireActivity())));
         ingredientsPresenterView.getIngredient();
 
-        areasPresenterView = new AreasPresenterImp(this, MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance()));
+        areasPresenterView = new AreasPresenterImp(this, MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(),MealLocalDataSourceImpl.getInstance(requireActivity())));
         areasPresenterView.getArea();
         return view;
     }
@@ -86,7 +83,7 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
 
         ingredientSearchAdapter = new IngredientSearchAdapter(requireActivity(),new ArrayList<>(),this);
         ingredientsRecyclerView.setAdapter(ingredientSearchAdapter);
-        ingredientsPresenterView = new IngredientsPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance()));
+        ingredientsPresenterView = new IngredientsPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(),MealLocalDataSourceImpl.getInstance(requireActivity())));
         ingredientsPresenterView.getIngredient();
 
         /*areasRecyclerView = view.findViewById(R.id.countryRecyclerView);
@@ -96,7 +93,7 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
 
         areaSearchAdapter = new AreaSearchAdapter(requireActivity(),new ArrayList<>(),this);
         areasRecyclerView.setAdapter(areaSearchAdapter);
-        areasPresenterView = new AreasPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance()));
+        areasPresenterView = new AreasPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(),MealLocalDataSourceImpl.getInstance(requireActivity())));
         areasPresenterView.getArea();
 
 

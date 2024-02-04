@@ -3,7 +3,7 @@ package com.example.foodplanner.home.presenter;
 import com.example.foodplanner.home.view.CategoryMealView;
 import com.example.foodplanner.model.dto.CategoriesItem;
 import com.example.foodplanner.model.MealRepositoryView;
-import com.example.foodplanner.model.network.CategoryCallBack;
+import com.example.foodplanner.model.network.network.CategoryCallBack;
 
 import java.util.List;
 

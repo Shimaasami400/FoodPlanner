@@ -4,4 +4,6 @@ import com.example.foodplanner.model.dto.MealsItem;
 
 public interface MealDetailPresenterView {
     public void SetClickedItemData(MealsItem mealsItem);
+   // public void getMeal();
+    public void addToFav(MealsItem mealsItem);
 }

@@ -14,19 +14,27 @@ import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.home.view.MealCategoryAdapter;
 import com.example.foodplanner.mealdetail.presenter.MealDetailPresenterView;
+import com.example.foodplanner.mealdetail.view.OnDetailItemClickListener;
 import com.example.foodplanner.model.dto.MealsItem;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
 
 public class IngridentsAdapter extends RecyclerView.Adapter<IngridentsAdapter.ViewHolder> {
-
-    private MealDetailPresenterView mealDetailPresenterView;
     private Context context;
-    List<MealsItem> mealItemDetailList;
+    private   List<MealsItem> mealItemDetailList;
+
 
    public IngridentsAdapter(Context context){
         this.context = context;
    }
+
+    public IngridentsAdapter(Context context,List<MealsItem> mealItemDetailList){
+        this.context = context;
+        this.mealItemDetailList = mealItemDetailList;
+
+    }
+
    public void setMealItemDetailList(List<MealsItem>mealItemDetailList){
        this.mealItemDetailList = mealItemDetailList;
        notifyDataSetChanged();
@@ -36,7 +44,6 @@ public class IngridentsAdapter extends RecyclerView.Adapter<IngridentsAdapter.Vi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.category_list_item,parent,false);
-        ViewHolder viewHolder = new ViewHolder(view);
         context = parent.getContext();
         return new ViewHolder(view);
     }
@@ -46,7 +53,8 @@ public class IngridentsAdapter extends RecyclerView.Adapter<IngridentsAdapter.Vi
         MealsItem mealsItem = mealItemDetailList.get(position);
         holder.tvIngridentName.setText(mealsItem.getStrMeal());
         Glide.with(context).load(mealsItem.getStrMealThumb()).into(holder.ingridentImage);
-    }
+
+        }
 
     @Override
     public int getItemCount() {
@@ -57,13 +65,15 @@ public class IngridentsAdapter extends RecyclerView.Adapter<IngridentsAdapter.Vi
            return 0;
     }
 
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView ingridentImage;
         private TextView tvIngridentName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ingridentImage = itemView.findViewById(R.id.imageViewIngredientImageItem);
-            tvIngridentName = itemView.findViewById(R.id.textViewIngredientNameItem);
+            ingridentImage = itemView.findViewById(R.id.imageViewIngredientItem);
+            tvIngridentName = itemView.findViewById(R.id.tvIngredientNameItem);
         }
     }
 }

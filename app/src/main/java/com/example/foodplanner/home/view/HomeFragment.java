@@ -27,7 +27,8 @@ import com.example.foodplanner.home.presenter.RandomMealPresenterImp;
 import com.example.foodplanner.home.presenter.RandomMealPresenterView;
 import com.example.foodplanner.model.dto.CategoriesItem;
 import com.example.foodplanner.model.MealRepositoryImpl;
-import com.example.foodplanner.model.network.MealRemoteDataSourceImpl;
+import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
+import com.example.foodplanner.model.network.network.MealRemoteDataSourceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
         image = view.findViewById(R.id.RandomImage);
         mealName = view.findViewById(R.id.tvRandom);
         mealCountry = view.findViewById(R.id.tvCountry);
-        presenterView = new RandomMealPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance()));
+        presenterView = new RandomMealPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(), MealLocalDataSourceImpl.getInstance(requireActivity())));
         presenterView.getMeal();
         return view;
 
@@ -79,10 +80,8 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
 
         categoryAdapter = new MealCategoryAdapter(requireActivity(),new ArrayList<>(),this);
         recyclerView.setAdapter(categoryAdapter);
-        categoryMealPresenterView = new CategoryMealPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance()));
+        categoryMealPresenterView = new CategoryMealPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(),MealLocalDataSourceImpl.getInstance(requireActivity())));
         categoryMealPresenterView.getCategory();
-
-
     }
 
     @Override
