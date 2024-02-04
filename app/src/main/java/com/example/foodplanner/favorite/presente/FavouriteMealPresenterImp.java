@@ -10,6 +10,8 @@ import com.example.foodplanner.model.dto.MealsItem;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
+
 public class FavouriteMealPresenterImp implements FavouriteMealPresenterView{
     private FavouriteMealView favouriteMealView;
     private MealRepositoryView mealRepositoryView;
@@ -19,7 +21,7 @@ public class FavouriteMealPresenterImp implements FavouriteMealPresenterView{
         this.mealRepositoryView = mealRepositoryView;
     }
     @Override
-    public LiveData<List<MealsItem>> getFavMealList() {
+    public Single<List<MealsItem>> getFavMealList() {
         Log.i("TAG", "getFavMealList: Fav Presenter Live Data ");
         return mealRepositoryView.getFavoriteMeals();
     }

@@ -6,7 +6,9 @@ import com.example.foodplanner.model.dto.MealsItem;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
+
 public interface FavouriteMealPresenterView {
-    public LiveData<List<MealsItem>> getFavMealList();
+    public Single<List<MealsItem>> getFavMealList();
     public void deleteMeal(MealsItem mealsItem);
 }

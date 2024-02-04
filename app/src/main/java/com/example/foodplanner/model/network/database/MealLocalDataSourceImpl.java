@@ -3,16 +3,16 @@ package com.example.foodplanner.model.network.database;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.foodplanner.model.dto.MealsItem;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
+
 public class MealLocalDataSourceImpl implements MealLocalDataSource{
     private MealDAO mealDAO;
     private static MealLocalDataSourceImpl mealLocalDataSource = null;
-    private LiveData<List<MealsItem>>storedFavoriteMeals;
+    private Single<List<MealsItem>> storedFavoriteMeals;
     private MealLocalDataSourceImpl(Context context){
         AppDataBase db = AppDataBase.getInstance(context.getApplicationContext());
         mealDAO = db.getMealsDAO();
@@ -41,7 +41,7 @@ public class MealLocalDataSourceImpl implements MealLocalDataSource{
     }
 
     @Override
-    public LiveData<List<MealsItem>> getAllFavoriteStoredMeals() {
+    public Single<List<MealsItem>> getAllFavoriteStoredMeals() {
         return storedFavoriteMeals;
     }
 }

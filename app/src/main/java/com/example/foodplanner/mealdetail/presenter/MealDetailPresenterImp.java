@@ -22,7 +22,7 @@ public class MealDetailPresenterImp implements MealDetailPresenterView{
         this.mealRepositoryView = mealRepositoryView;
     }
     @Override
-    public void SetClickedItemData(MealsItem mealsItem){///////////
+    public void SetClickedItemData(MealsItem mealsItem){
        this.mealsItem = mealsItem;
         mealDetailView.showItemDetailData(mealsItem);
     }

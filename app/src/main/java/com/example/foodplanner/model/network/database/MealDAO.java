@@ -10,10 +10,13 @@ import androidx.room.Query;
 import com.example.foodplanner.model.dto.MealsItem;
 
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Single;
+
 @Dao
 public interface MealDAO {
     @Query("SELECT * FROM meals")
-    LiveData<List<MealsItem>> getAllFavoriteMeals();//get the favList.
+    Single<List<MealsItem>> getAllFavoriteMeals();//get the favList.
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertMealToFavorite(MealsItem mealsItem);
