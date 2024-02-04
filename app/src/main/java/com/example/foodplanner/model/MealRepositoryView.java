@@ -10,6 +10,8 @@ import com.example.foodplanner.model.network.network.RandomMealCallback;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
+
 public interface MealRepositoryView {
     //Remote
     public void RandomMealNetworkCall(RandomMealCallback networkCallback);
@@ -19,11 +21,11 @@ public interface MealRepositoryView {
 
 
     //Local
-    public LiveData<List<MealsItem>> getFavoriteMeals();
+    public Single<List<MealsItem>> getFavoriteMeals();
     public void deleteMeal(MealsItem mealsItem);
     public void insertMeal(MealsItem mealsItem);
 
 
-    LiveData<List<MealsItem>> getFavoriteMealsLiveData(); // Add this method
+    Single<List<MealsItem>> getFavoriteMealsSingle(); // Add this method
 
 }

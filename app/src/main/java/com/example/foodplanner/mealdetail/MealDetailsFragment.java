@@ -170,6 +170,6 @@ public class MealDetailsFragment extends Fragment implements MealDetailView ,OnD
         Log.i("TAG", "meal item from onitemclick listener: "+mealsItem);
         mealDetailPresenterView.addToFav(mealsItem);
         Toast.makeText(requireActivity(), "Item added to favorites", Toast.LENGTH_SHORT).show();
-        mealRepositoryView.getFavoriteMealsLiveData().getValue();
+        mealRepositoryView.getFavoriteMealsSingle().getClass();
     }
 }

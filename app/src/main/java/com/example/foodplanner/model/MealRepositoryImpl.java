@@ -12,6 +12,8 @@ import com.example.foodplanner.model.network.network.RandomMealCallback;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
+
 public class MealRepositoryImpl implements MealRepositoryView{
     MealRemoteDataSourceImpl mealRemoteDataSource;
     MealLocalDataSourceImpl mealLocalDataSource;
@@ -50,7 +52,7 @@ public class MealRepositoryImpl implements MealRepositoryView{
     }
 
     @Override
-    public LiveData<List<MealsItem>> getFavoriteMeals() {
+    public Single<List<MealsItem>> getFavoriteMeals() {
         return mealLocalDataSource.getAllFavoriteStoredMeals();
     }
 
@@ -65,9 +67,7 @@ public class MealRepositoryImpl implements MealRepositoryView{
     }
 
     @Override
-    public LiveData<List<MealsItem>> getFavoriteMealsLiveData() {
-            return mealLocalDataSource.getAllFavoriteStoredMeals();
+    public Single<List<MealsItem>> getFavoriteMealsSingle() {
+        return mealLocalDataSource.getAllFavoriteStoredMeals();
     }
-
-
 }
