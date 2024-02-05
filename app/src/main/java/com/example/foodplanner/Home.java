@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.foodplanner.model.dto.MealsItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -55,5 +56,11 @@ public class Home extends AppCompatActivity {
 public boolean onSupportNavigateUp() {
     return navController.navigateUp() || super.onSupportNavigateUp();
 }
+    public void onItemClickListener(MealsItem mealsItem) {
+        // Handle click event from MealDetailsFragment
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("item", mealsItem);
+        navController.navigate(R.id.favoriteFragment, bundle);
+    }
 
  }

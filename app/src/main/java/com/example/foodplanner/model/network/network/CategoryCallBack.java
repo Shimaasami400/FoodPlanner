@@ -1,4 +1,4 @@
-package com.example.foodplanner.model.network;
+package com.example.foodplanner.model.network.network;
 
 import com.example.foodplanner.model.dto.CategoriesItem;
 

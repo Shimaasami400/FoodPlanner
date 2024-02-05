@@ -1,4 +1,4 @@
-package com.example.foodplanner.mealdetail;
+package com.example.foodplanner.mealdetail.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -20,33 +20,27 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.home.presenter.CategoryMealPresenterImp;
-import com.example.foodplanner.home.presenter.RandomMealPresenterImp;
-import com.example.foodplanner.home.presenter.RandomMealPresenterView;
-import com.example.foodplanner.home.view.MealCategoryAdapter;
 import com.example.foodplanner.mealdetail.presenter.MealDetailPresenterImp;
 import com.example.foodplanner.mealdetail.presenter.MealDetailPresenterView;
-import com.example.foodplanner.mealdetail.view.MealDetailView;
 import com.example.foodplanner.model.MealRepositoryImpl;
+import com.example.foodplanner.model.MealRepositoryView;
 import com.example.foodplanner.model.dto.MealsItem;
-import com.example.foodplanner.model.network.MealRemoteDataSourceImpl;
+import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
+import com.example.foodplanner.model.network.network.MealRemoteDataSourceImpl;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-
-public class MealDetailsFragment extends Fragment implements MealDetailView {
-
+public class MealDetailsFragment extends Fragment implements MealDetailView ,OnDetailItemClickListener{
     private ImageView itemImage;
     private TextView tvItemName;
     private TextView tvItemCountry;
     private TextView tvItemCategory;
+    private ImageView addToFavImage;
     private MealDetailPresenterView mealDetailPresenterView;
     private MealsItem mealsItem;
-
     private Context context;
     private IngridentsAdapter ingridentsAdapter;
     private RecyclerView recyclerView;
@@ -56,17 +50,18 @@ public class MealDetailsFragment extends Fragment implements MealDetailView {
     private LinearLayoutManager linearLayoutManager;
     private CardView ingridentCardView;
     private YouTubePlayerView youTubePlayerView;
+    private MealRepositoryView mealRepositoryView;
+    private OnDetailItemClickListener onDetailItemClickListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mealDetailPresenterView = new MealDetailPresenterImp(this) ;
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_meal_details, container, false);
 
@@ -74,38 +69,61 @@ public class MealDetailsFragment extends Fragment implements MealDetailView {
         tvItemCountry = view.findViewById(R.id.textViewMealCountryItemDetails);
         tvItemCategory = view.findViewById(R.id.textViewMealCateItemDetails);
         itemImage = view.findViewById(R.id.mealImage);
+        addToFavImage = view.findViewById(R.id.imageViewAddToFavITemDetails);
         youTubePlayerView = view.findViewById(R.id.ytPlayer);
+
 
         mealsItem = (MealsItem) getArguments().getSerializable("item");
 
         // Check if mealsItem is not null
         if (mealsItem != null) {
-            // Load video from YouTube
-            String videoUrl = mealsItem.getStrYoutube();
-            youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                    // Load video when player is ready.
-                    youTubePlayer.loadVideo(getVideoId(videoUrl), 0);
-                }
+            // Load item details
+            showItemDetailData(mealsItem);
 
-                private String getVideoId(String videoUrl) {
-                    String videoId = null;
-                    if (videoUrl != null && videoUrl.trim().length() > 0) {
-                        String[] urlParts = videoUrl.split("v=");
-                        if (urlParts.length > 1) {
-                            videoId = urlParts[1];
-                        }
+            // Load video from YouTube when the user interacts with it
+            youTubePlayerView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String videoUrl = mealsItem.getStrYoutube();
+                    if (videoUrl != null && !videoUrl.isEmpty()) {
+                        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                            @Override
+                            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                                // Load video when player is ready.
+                                youTubePlayer.loadVideo(getVideoId(videoUrl), 0);
+                            }
+
+                            private String getVideoId(String videoUrl) {
+                                String videoId = null;
+                                String[] urlParts = videoUrl.split("v=");
+                                if (urlParts.length > 1) {
+                                    videoId = urlParts[1];
+                                }
+                                return videoId;
+                            }
+                        });
                     }
-                    return videoId;
                 }
             });
         }
-
+        addToFavImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                   // onDetailItemClickListener.onItemClickListener(mealsItem);
+                mealDetailPresenterView.addToFav(mealsItem);
+                addToFavImage.setImageResource(R.drawable.fullheart);
+            }
+        });
         // Update UI with item details
         showItemDetailData(mealsItem);
 
         return view;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context=context;
     }
 
     @Override
@@ -119,28 +137,8 @@ public class MealDetailsFragment extends Fragment implements MealDetailView {
 
         ingridentsAdapter = new IngridentsAdapter(requireActivity());
         recyclerView.setAdapter(ingridentsAdapter);
-        mealDetailPresenterView = new MealDetailPresenterImp(this);
-        // Assuming mealsItem has the list of ingredients
-        /*List<MealsItem> ingredientsList = mealsItem.getIngredients();
-
-        recyclerView = view.findViewById(R.id.recyclerViewIngredientsItemDetails);
-        ingridentCardView = view.findViewById(R.id.cardView);
-        linearLayoutManager = new LinearLayoutManager(requireActivity());
-        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-
-        ingridentsAdapter = new IngridentsAdapter(requireActivity());
-        recyclerView.setAdapter(ingridentsAdapter);
-
-        // Set the list of ingredients in the adapter
-        ingridentsAdapter.setMealItemDetailList(ingredientsList);*/
-
-
-
-
-
-
-    }
+        mealDetailPresenterView = new MealDetailPresenterImp(this, MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(), MealLocalDataSourceImpl.getInstance(requireActivity())));
+        }
 
     @Override
     public void showItemDetailData(MealsItem mealsItem) {
@@ -155,7 +153,21 @@ public class MealDetailsFragment extends Fragment implements MealDetailView {
     }
 
     @Override
+    public void addToFav(MealsItem mealsItem) {
+        mealRepositoryView.insertMeal(mealsItem);
+    }
+
+    @Override
     public void showItemDetailErrorMsg(String error) {
         Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClickListener(MealsItem mealsItem) {
+        this.mealsItem = mealsItem;
+        Log.i("TAG", "meal item from onitemclick listener: "+mealsItem);
+        mealDetailPresenterView.addToFav(mealsItem);
+        Toast.makeText(requireActivity(), "Item added to favorites", Toast.LENGTH_SHORT).show();
+        mealRepositoryView.getFavoriteMealsSingle().getClass();
     }
 }

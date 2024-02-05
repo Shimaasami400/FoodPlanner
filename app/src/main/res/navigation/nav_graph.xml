@@ -8,17 +8,20 @@
     <fragment
         android:id="@+id/randomMealFragment"
         android:name="com.example.foodplanner.home.view.HomeFragment"
-        android:label="fragment_random_meal"
-        tools:layout="@layout/fragment_random_meal" >
+        android:label="Home"
+        tools:layout="@layout/fragment_random_meal">
         <action
             android:id="@+id/action_randomMealFragment_to_mealDetailsFragment"
             app:destination="@id/mealDetailsFragment" />
+        <action
+            android:id="@+id/action_randomMealFragment_to_categoryDetailsFragment"
+            app:destination="@id/categoryDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"
-        android:name="com.example.foodplanner.mealdetail.MealDetailsFragment"
-        android:label="fragment_meal_details"
-        tools:layout="@layout/fragment_meal_details" >
+        android:name="com.example.foodplanner.mealdetail.view.MealDetailsFragment"
+        android:label="Meal Details"
+        tools:layout="@layout/fragment_meal_details">
         <argument
             android:name="meal"
             app:argType="com.example.foodplanner.model.dto.MealsItem" />
@@ -26,16 +29,25 @@
     <fragment
         android:id="@+id/calenderFragment2"
         android:name="com.example.foodplanner.CalenderFragment"
-        android:label="fragment_calender"
+        android:label="Calender"
         tools:layout="@layout/fragment_calender" />
     <fragment
         android:id="@+id/searchFragment2"
         android:name="com.example.foodplanner.search.view.SearchFragment"
-        android:label="fragment_search"
+        android:label="Search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.foodplanner.FavoriteFragment"
-        android:label="fragment_favorite"
+        android:name="com.example.foodplanner.favorite.view.FavoriteFragment"
+        android:label="Favorite"
         tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/categoryDetailsFragment"
+        android:name="com.example.foodplanner.category.view.CategoryDetailsFragment"
+        android:label="Category Details"
+        tools:layout="@layout/fragment_category_details">
+        <argument
+            android:name="categorydetail"
+            app:argType="com.example.foodplanner.model.dto.CategoriesItem" />
+    </fragment>
 </navigation>

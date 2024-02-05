@@ -1,12 +1,15 @@
-package com.example.foodplanner.model.network;
+package com.example.foodplanner.model.network.network;
 
 import com.example.foodplanner.model.dto.AreaItemResponse;
 import com.example.foodplanner.model.dto.CategoriesItemResponse;
+import com.example.foodplanner.model.dto.CategoryDetailsResponse;
 import com.example.foodplanner.model.dto.IngredientsItemResponse;
 import com.example.foodplanner.model.dto.MealsItemResponse;
 
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface MealService {
     @GET("random.php")
@@ -17,4 +20,7 @@ public interface MealService {
     public Call<IngredientsItemResponse>getIngredients();
     @GET("list.php?a=list")
     public Call<AreaItemResponse>getAreas();
+
+    @GET("filter.php")
+    public Call<CategoryDetailsResponse> getMealsByCategory(@Query("c") String category);
 }

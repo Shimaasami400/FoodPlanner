@@ -1,22 +1,33 @@
 package com.example.foodplanner.model;
 
-import com.example.foodplanner.model.network.AreaMealCallback;
-import com.example.foodplanner.model.network.CategoryCallBack;
-import com.example.foodplanner.model.network.IngredientsCallback;
-import com.example.foodplanner.model.network.MealRemoteDataSourceImpl;
-import com.example.foodplanner.model.network.RandomMealCallback;
+import androidx.lifecycle.LiveData;
+
+import com.example.foodplanner.model.dto.MealsItem;
+import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
+import com.example.foodplanner.model.network.network.AreaMealCallback;
+import com.example.foodplanner.model.network.network.CategoryCallBack;
+import com.example.foodplanner.model.network.network.CategoryDetailsCallback;
+import com.example.foodplanner.model.network.network.IngredientsCallback;
+import com.example.foodplanner.model.network.network.MealRemoteDataSourceImpl;
+import com.example.foodplanner.model.network.network.RandomMealCallback;
+
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Single;
 
 public class MealRepositoryImpl implements MealRepositoryView{
     MealRemoteDataSourceImpl mealRemoteDataSource;
+    MealLocalDataSourceImpl mealLocalDataSource;
     static MealRepositoryImpl mealRepository;
 
-    public MealRepositoryImpl(MealRemoteDataSourceImpl mealRemoteDataSource){
+    public MealRepositoryImpl(MealRemoteDataSourceImpl mealRemoteDataSource,MealLocalDataSourceImpl mealLocalDataSource){
         this.mealRemoteDataSource = mealRemoteDataSource;
+        this.mealLocalDataSource = mealLocalDataSource;
     }
 
-    public static MealRepositoryImpl getInstance(MealRemoteDataSourceImpl mealRemoteDataSource){
+    public static MealRepositoryImpl getInstance(MealRemoteDataSourceImpl mealRemoteDataSource,MealLocalDataSourceImpl mealLocalDataSource){
         if(mealRepository == null)
-            mealRepository = new MealRepositoryImpl(mealRemoteDataSource);
+            mealRepository = new MealRepositoryImpl(mealRemoteDataSource,mealLocalDataSource);
 
         return  mealRepository;
     }
@@ -41,5 +52,29 @@ public class MealRepositoryImpl implements MealRepositoryView{
         mealRemoteDataSource.AreasNetworkCall(areaMealCallback);
     }
 
+    @Override
+    public void CategoryDetailsNetworkCall(String category, CategoryDetailsCallback categoryDetailsCallback) {
+        mealRemoteDataSource.CategoryDetailsNetworkCall(category,categoryDetailsCallback);
+    }
+
+    @Override
+    public Single<List<MealsItem>> getFavoriteMeals() {
+        return mealLocalDataSource.getAllFavoriteStoredMeals();
+    }
+
+    @Override
+    public void deleteMeal(MealsItem mealsItem) {
+        mealLocalDataSource.deleteMealFromFavorite(mealsItem);
+    }
+
+    @Override
+    public void insertMeal(MealsItem mealsItem) {
+        mealLocalDataSource.insertMealToFavorite(mealsItem);
+    }
+
+    @Override
+    public Single<List<MealsItem>> getFavoriteMealsSingle() {
+        return mealLocalDataSource.getAllFavoriteStoredMeals();
+    }
 
 }

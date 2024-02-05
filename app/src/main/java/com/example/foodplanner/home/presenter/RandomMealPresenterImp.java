@@ -1,10 +1,9 @@
 package com.example.foodplanner.home.presenter;
 
 import com.example.foodplanner.model.dto.MealsItem;
-import com.example.foodplanner.home.view.CategoryMealView;
 import com.example.foodplanner.home.view.RandomMealView;
 import com.example.foodplanner.model.MealRepositoryView;
-import com.example.foodplanner.model.network.RandomMealCallback;
+import com.example.foodplanner.model.network.network.RandomMealCallback;
 import java.util.List;
 
 public class RandomMealPresenterImp implements RandomMealPresenterView, RandomMealCallback {

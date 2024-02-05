@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface MealDetailView {
     public void showItemDetailData(MealsItem mealsItem);
+    public void addToFav(MealsItem mealsItem);
     public void showItemDetailErrorMsg(String error);
 }
