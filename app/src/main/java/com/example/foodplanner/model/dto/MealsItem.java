@@ -13,9 +13,6 @@ public class MealsItem implements Serializable {
 	@Ignore
 	@SerializedName("strImageSource")
 	private Object strImageSource;
-	@Ignore
-	@SerializedName("strIngredient10")
-	private String strIngredient10;
 
 	@SerializedName("strIngredient12")
 	private String strIngredient12;
@@ -43,6 +40,10 @@ public class MealsItem implements Serializable {
 
 	@SerializedName("strIngredient17")
 	private String strIngredient17;
+
+	@Ignore
+	@SerializedName("strIngredient10")
+	private String strIngredient10;
 
 	@SerializedName("strArea")
 	private String strArea;

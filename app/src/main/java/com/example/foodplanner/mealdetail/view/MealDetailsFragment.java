@@ -1,4 +1,4 @@
-package com.example.foodplanner.mealdetail;
+package com.example.foodplanner.mealdetail.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -22,8 +22,6 @@ import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.mealdetail.presenter.MealDetailPresenterImp;
 import com.example.foodplanner.mealdetail.presenter.MealDetailPresenterView;
-import com.example.foodplanner.mealdetail.view.MealDetailView;
-import com.example.foodplanner.mealdetail.view.OnDetailItemClickListener;
 import com.example.foodplanner.model.MealRepositoryImpl;
 import com.example.foodplanner.model.MealRepositoryView;
 import com.example.foodplanner.model.dto.MealsItem;

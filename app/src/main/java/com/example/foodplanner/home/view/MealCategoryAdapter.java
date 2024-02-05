@@ -14,15 +14,20 @@ import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.dto.CategoriesItem;
 
+import java.security.PublicKey;
 import java.util.List;
 
 public class MealCategoryAdapter extends RecyclerView.Adapter<MealCategoryAdapter.ViewHolder>{
     private Context context;
-     private List<CategoriesItem> categoriesItemList;
+    private List<CategoriesItem> categoriesItemList;
     private OnCategoryClickListener categoryClickListener;
     public MealCategoryAdapter(Context context, List<CategoriesItem> categoriesItemList, OnCategoryClickListener categoryClickListener) {
         this.context = context;
         this.categoriesItemList =  categoriesItemList;
+        this.categoryClickListener = categoryClickListener;
+    }
+
+    public void setCategoryClickListener(OnCategoryClickListener categoryClickListener) {
         this.categoryClickListener = categoryClickListener;
     }
 
@@ -50,6 +55,14 @@ public class MealCategoryAdapter extends RecyclerView.Adapter<MealCategoryAdapte
 
         holder.txtCategoryName.setText(categoriesItem.getStrCategory());
         Glide.with(context).load(categoriesItem.getStrCategoryThumb()).into(holder.image);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (categoryClickListener != null) {
+                    categoryClickListener.onCategoryClick(categoriesItem);
+                }
+            }
+        });
 
     }
 

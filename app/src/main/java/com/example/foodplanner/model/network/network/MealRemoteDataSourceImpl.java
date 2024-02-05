@@ -2,6 +2,7 @@ package com.example.foodplanner.model.network.network;
 
 import com.example.foodplanner.model.dto.AreaItemResponse;
 import com.example.foodplanner.model.dto.CategoriesItemResponse;
+import com.example.foodplanner.model.dto.CategoryDetailsResponse;
 import com.example.foodplanner.model.dto.IngredientsItemResponse;
 import com.example.foodplanner.model.dto.MealsItemResponse;
 import com.google.gson.Gson;
@@ -123,4 +124,31 @@ public class MealRemoteDataSourceImpl implements MealRemoteDataSource{
             }
         });
     }
-}
+
+    @Override
+    public void CategoryDetailsNetworkCall(String category, CategoryDetailsCallback categoryDetailsCallback) {
+
+            Call<CategoryDetailsResponse> call = mealService.getMealsByCategory(category);
+            call.enqueue(new Callback<CategoryDetailsResponse>() {
+                @Override
+                public void onResponse(Call<CategoryDetailsResponse> call, Response<CategoryDetailsResponse> response) {
+                    if (response.isSuccessful()) {
+                        // Call the appropriate method from the callback interface
+                        categoryDetailsCallback.onSuccessResult(response.body().getCategoryDetails());
+                    } else {
+                        // Handle unsuccessful response
+                        categoryDetailsCallback.onFailureResult("Failed to retrieve category details");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CategoryDetailsResponse> call, Throwable t) {
+                    // Handle network failures
+                    categoryDetailsCallback.onFailureResult(t.getMessage());
+                    t.printStackTrace();
+                }
+            });
+        }
+
+ }
+

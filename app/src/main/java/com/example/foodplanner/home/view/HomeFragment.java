@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.home.presenter.CategoryMealPresenterImp;
 import com.example.foodplanner.home.presenter.CategoryMealPresenterView;
+import com.example.foodplanner.model.dto.CategoryDetails;
 import com.example.foodplanner.model.dto.MealsItem;
 import com.example.foodplanner.R;
 import com.example.foodplanner.home.presenter.RandomMealPresenterImp;
@@ -30,12 +31,12 @@ import com.example.foodplanner.model.MealRepositoryImpl;
 import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
 import com.example.foodplanner.model.network.network.MealRemoteDataSourceImpl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class HomeFragment extends Fragment implements RandomMealView ,CategoryMealView,OnCategoryClickListener{
-    RandomMealPresenterView randomMealPresenterView;
     private Context context;
     private MealCategoryAdapter categoryAdapter;
     private RecyclerView  recyclerView;
@@ -81,6 +82,7 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
         categoryAdapter = new MealCategoryAdapter(requireActivity(),new ArrayList<>(),this);
         recyclerView.setAdapter(categoryAdapter);
         categoryMealPresenterView = new CategoryMealPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(),MealLocalDataSourceImpl.getInstance(requireActivity())));
+        categoryAdapter.setCategoryClickListener(this);
         categoryMealPresenterView.getCategory();
     }
 
@@ -115,5 +117,13 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
     @Override
     public void showErrorMsgCategory(String error) {
         Toast.makeText(requireActivity(), error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCategoryClick(CategoriesItem category) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("category", (Serializable) category);
+        Toast.makeText(requireActivity(), "category"+category, Toast.LENGTH_SHORT).show();
+        Navigation.findNavController(requireView()).navigate(R.id.action_randomMealFragment_to_categoryDetailsFragment, bundle);
     }
 }
