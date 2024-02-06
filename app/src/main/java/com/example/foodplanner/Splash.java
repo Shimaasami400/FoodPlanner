@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.foodplanner.onboard.OnBoardingActivity;
+
 public class Splash extends AppCompatActivity {
 
     SharedPreferences mSharedPreferences;
@@ -29,8 +31,8 @@ public class Splash extends AppCompatActivity {
                     SharedPreferences.Editor editor = mSharedPreferences.edit();
                     editor.putBoolean("firstTime", false);
                     editor.apply();
-                   // Intent intent = new Intent(Splash.this, OnBoardingActivity.class);
-                    Intent intent = new Intent(Splash.this,Home.class);
+                    Intent intent = new Intent(Splash.this, OnBoardingActivity.class);
+                    //Intent intent = new Intent(Splash.this,Home.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
 
