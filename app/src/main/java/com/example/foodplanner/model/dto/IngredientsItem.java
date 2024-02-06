@@ -2,7 +2,9 @@ package com.example.foodplanner.model.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class IngredientsItem {
+import java.io.Serializable;
+
+public class IngredientsItem implements Serializable {
 
 	@SerializedName("strDescription")
 	private String strDescription;

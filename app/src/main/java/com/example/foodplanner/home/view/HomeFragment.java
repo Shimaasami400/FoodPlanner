@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.home.presenter.CategoryMealPresenterImp;
 import com.example.foodplanner.home.presenter.CategoryMealPresenterView;
-import com.example.foodplanner.model.dto.CategoryDetails;
 import com.example.foodplanner.model.dto.MealsItem;
 import com.example.foodplanner.R;
 import com.example.foodplanner.home.presenter.RandomMealPresenterImp;

@@ -2,7 +2,9 @@ package com.example.foodplanner.model.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AreaItem {
+import java.io.Serializable;
+
+public class AreaItem implements Serializable {
 
 	@SerializedName("strArea")
 	private String strArea;

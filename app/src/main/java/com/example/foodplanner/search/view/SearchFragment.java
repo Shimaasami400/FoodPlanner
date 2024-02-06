@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,7 @@ import com.example.foodplanner.search.presenter.AreasPresenterView;
 import com.example.foodplanner.search.presenter.IngredientsPresenterImp;
 import com.example.foodplanner.search.presenter.IngredientsPresenterView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,7 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
 
     private IngredientSearchAdapter ingredientSearchAdapter;
     private AreaSearchAdapter areaSearchAdapter;
-    CardView randomCardView;
+    CardView  ingredientCardView;
 
 
     @Override
@@ -86,11 +88,6 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
         ingredientsPresenterView = new IngredientsPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(),MealLocalDataSourceImpl.getInstance(requireActivity())));
         ingredientsPresenterView.getIngredient();
 
-        /*areasRecyclerView = view.findViewById(R.id.countryRecyclerView);
-        areasLinearLayoutManager = new LinearLayoutManager(requireActivity());
-        areasLinearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        areasRecyclerView.setLayoutManager(areasLinearLayoutManager);*/
-
         areaSearchAdapter = new AreaSearchAdapter(requireActivity(),new ArrayList<>(),this);
         areasRecyclerView.setAdapter(areaSearchAdapter);
         areasPresenterView = new AreasPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(),MealLocalDataSourceImpl.getInstance(requireActivity())));
@@ -108,17 +105,11 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
             } else {
                 Toast.makeText(requireActivity(), "Ingredients list is null", Toast.LENGTH_SHORT).show();
             }
-
-
-       /* ingredientSearchAdapter.setList(IngredientsItemList);
-        ingredientSearchAdapter.notifyDataSetChanged();
-        Toast.makeText(requireActivity(),"Success: "+IngredientsItemList.size(),Toast.LENGTH_SHORT).show();*/
-
     }
 
     @Override
     public void showIngredientsErrorMsg(String error) {
-
+        Toast.makeText(requireActivity(), error, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -135,5 +126,21 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
     @Override
     public void showAreasErrorMsg(String error) {
 
+    }
+
+    @Override
+    public void onIngredientClick(IngredientsItem ingredientsItem) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ingredient", (Serializable) ingredientsItem);
+        Toast.makeText(requireActivity(), "ingredient"+ingredientsItem, Toast.LENGTH_SHORT).show();
+        Navigation.findNavController(requireView()).navigate(R.id.action_searchFragment2_to_ingredientDetailsFragment, bundle);
+    }
+
+    @Override
+    public void onAreaClick(AreaItem areaItem) {
+        Bundle areaBundle = new Bundle();
+        areaBundle.putSerializable("area", (Serializable) areaItem);
+        Toast.makeText(requireActivity(), "ingredient"+areaItem, Toast.LENGTH_SHORT).show();
+        Navigation.findNavController(requireView()).navigate(R.id.action_searchFragment2_to_areaDetailsFragment, areaBundle);
     }
 }
