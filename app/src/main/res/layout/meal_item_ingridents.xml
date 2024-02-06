@@ -50,7 +50,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="10dp"
         android:textAlignment="center"
-        android:textColor="@color/lightPurple"
+        android:textColor="@color/secondaryBrown"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

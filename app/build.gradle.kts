@@ -124,4 +124,7 @@ dependencies {
     //Room
     implementation("androidx.room:room-rxjava3:$2.4.1")
 
+    // Lottie dependency
+    implementation ("com.airbnb.android:lottie:6.1.0")
+
    }

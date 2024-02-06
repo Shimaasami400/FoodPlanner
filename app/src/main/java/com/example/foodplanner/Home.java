@@ -3,6 +3,7 @@ package com.example.foodplanner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -30,11 +31,16 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         navigationView = findViewById(R.id.navigation_view);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.searchFragment2, R.id.favoriteFragment, R.id.calenderFragment2, R.id.randomMealFragment).build();
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true); // This line is causing the NullPointerException
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+        //actionBar.setDisplayShowHomeEnabled(true);
 
          navController= Navigation.findNavController(this,R.id.nav_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController,appBarConfiguration);

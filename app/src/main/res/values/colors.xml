@@ -2,9 +2,12 @@
 <resources>
     <color name="black">#212121</color>
     <color name="white">#FFFFFF</color>
-    <color name="darkPurple">#7B1FA2</color>
-    <color name="lightPurple">#E1BEE7</color>
-    <color name="darkGray">#757575</color>
+    <color name="mainOrange">#EF603F</color>
+    <color name="secondaryOrange">#FF7657</color>
+    <color name="mainBrown">#665A58</color>
+    <color name="secondaryBrown">#997971</color>
+    <color name="orangeBrown">#CC7F6E</color>
     <color name="whiteGray">#BDBDBD</color>
 
 </resources>
+
