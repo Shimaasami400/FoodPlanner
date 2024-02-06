@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardView_category_detail_item"
+    android:id="@+id/cardView_area_detail_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardElevation="4dp"
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/categoryDetailsItemImage"
+            android:id="@+id/areaDetailsItemImage"
             android:layout_width="match_parent"
             android:layout_height="164dp"
             android:scaleType="fitXY"
@@ -26,7 +26,7 @@
             app:riv_corner_radius_top_right="16dip" />
 
         <TextView
-            android:id="@+id/txtCategoryDetailsItemName"
+            android:id="@+id/txtareaDetailsItemName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
@@ -41,7 +41,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/categoryDetailsItemImage" />
+            app:layout_constraintTop_toBottomOf="@+id/areaDetailsItemImage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

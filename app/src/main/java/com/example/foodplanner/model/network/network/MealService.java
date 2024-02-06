@@ -2,7 +2,7 @@ package com.example.foodplanner.model.network.network;
 
 import com.example.foodplanner.model.dto.AreaItemResponse;
 import com.example.foodplanner.model.dto.CategoriesItemResponse;
-import com.example.foodplanner.model.dto.CategoryDetailsResponse;
+import com.example.foodplanner.model.dto.ListsDetailsResponse;
 import com.example.foodplanner.model.dto.IngredientsItemResponse;
 import com.example.foodplanner.model.dto.MealsItemResponse;
 
@@ -22,5 +22,9 @@ public interface MealService {
     public Call<AreaItemResponse>getAreas();
 
     @GET("filter.php")
-    public Call<CategoryDetailsResponse> getMealsByCategory(@Query("c") String category);
+    public Single<ListsDetailsResponse> getMealsByCategory(@Query("c") String category);
+    @GET("filter.php")
+    public Single<ListsDetailsResponse> getMealsByIngredient(@Query("i") String category);
+    @GET("filter.php")
+    public Single<ListsDetailsResponse> getMealsByArea(@Query("a") String category);
 }

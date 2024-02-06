@@ -86,8 +86,7 @@ public class FavMealsAdapter extends RecyclerView.Adapter<FavMealsAdapter.ViewHo
             mealImage = itemView.findViewById(R.id.MealImage);
             deleteMealImage = itemView.findViewById(R.id.deleteImageView);
             mealName = itemView.findViewById(R.id.tvMealName);
-            mealCountry = itemView.findViewById(R.id.tvMealCountry);
-            cardView = itemView.findViewById(R.id.favCardView);
+             cardView = itemView.findViewById(R.id.favCardView);
 
             }
 
@@ -96,8 +95,7 @@ public class FavMealsAdapter extends RecyclerView.Adapter<FavMealsAdapter.ViewHo
                 @Override
                 public void run() {
                     mealName.setText(mealsItem.getStrMeal());
-                    mealCountry.setText(mealsItem.getStrArea());
-                    Glide.with(context).load(mealsItem.getStrMealThumb()).into(mealImage);
+                     Glide.with(context).load(mealsItem.getStrMealThumb()).into(mealImage);
 
                 }
             });

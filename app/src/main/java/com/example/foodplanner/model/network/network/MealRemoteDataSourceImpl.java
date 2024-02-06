@@ -2,12 +2,16 @@ package com.example.foodplanner.model.network.network;
 
 import com.example.foodplanner.model.dto.AreaItemResponse;
 import com.example.foodplanner.model.dto.CategoriesItemResponse;
-import com.example.foodplanner.model.dto.CategoryDetailsResponse;
+import com.example.foodplanner.model.dto.ListsDetailsResponse;
 import com.example.foodplanner.model.dto.IngredientsItemResponse;
 import com.example.foodplanner.model.dto.MealsItemResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,6 +31,7 @@ public class MealRemoteDataSourceImpl implements MealRemoteDataSource{
         retrofit = new Retrofit.Builder()  // Use the class-level retrofit variable
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
         mealService = retrofit.create(MealService.class);
     }
@@ -124,31 +129,25 @@ public class MealRemoteDataSourceImpl implements MealRemoteDataSource{
             }
         });
     }
+    @Override
+    public Single<ListsDetailsResponse> CategoryDetailsNetworkCall(String category) {
+        return mealService.getMealsByCategory(category)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
     @Override
-    public void CategoryDetailsNetworkCall(String category, CategoryDetailsCallback categoryDetailsCallback) {
+    public Single<ListsDetailsResponse> IngredientDetailsNetworkCall(String category) {
+        return mealService.getMealsByIngredient(category)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
-            Call<CategoryDetailsResponse> call = mealService.getMealsByCategory(category);
-            call.enqueue(new Callback<CategoryDetailsResponse>() {
-                @Override
-                public void onResponse(Call<CategoryDetailsResponse> call, Response<CategoryDetailsResponse> response) {
-                    if (response.isSuccessful()) {
-                        // Call the appropriate method from the callback interface
-                        categoryDetailsCallback.onSuccessResult(response.body().getCategoryDetails());
-                    } else {
-                        // Handle unsuccessful response
-                        categoryDetailsCallback.onFailureResult("Failed to retrieve category details");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<CategoryDetailsResponse> call, Throwable t) {
-                    // Handle network failures
-                    categoryDetailsCallback.onFailureResult(t.getMessage());
-                    t.printStackTrace();
-                }
-            });
-        }
-
- }
+    @Override
+    public Single<ListsDetailsResponse> AreaDetailsNetworkCall(String category) {
+        return mealService.getMealsByArea(category)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+}
 

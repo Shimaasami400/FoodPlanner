@@ -51,6 +51,14 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
         IngredientsItem ingredientsItem = ingredientsItemList.get(position);
         holder.txtingredientName.setText(ingredientsItem.getStrIngredient());
         Glide.with(context).load("https://www.themealdb.com/images/ingredients/" + ingredientsItem.getStrIngredient() + "-Small.png").into(holder.ingredientImage);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (oningredientsClickListener != null) {
+                    oningredientsClickListener.onIngredientClick(ingredientsItem);
+                }
+            }
+        });
     }
 
     @Override

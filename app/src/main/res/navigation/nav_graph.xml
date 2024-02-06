@@ -35,7 +35,14 @@
         android:id="@+id/searchFragment2"
         android:name="com.example.foodplanner.search.view.SearchFragment"
         android:label="Search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment2_to_ingredientDetailsFragment"
+            app:destination="@id/ingredientDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment2_to_areaDetailsFragment"
+            app:destination="@id/areaDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.foodplanner.favorite.view.FavoriteFragment"
@@ -49,5 +56,21 @@
         <argument
             android:name="categorydetail"
             app:argType="com.example.foodplanner.model.dto.CategoriesItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/ingredientDetailsFragment"
+        android:name="com.example.foodplanner.ingredient.view.IngredientDetailsFragment"
+        android:label="Ingredients List">
+        <argument
+            android:name=" ingredient_detail_list"
+            app:argType="com.example.foodplanner.model.dto.IngredientsItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/areaDetailsFragment"
+        android:name="com.example.foodplanner.Area.view.AreaDetailsFragment"
+        android:label="Area list" >
+        <argument
+            android:name="area_detail"
+            app:argType="com.example.foodplanner.model.dto.AreaItem" />
     </fragment>
 </navigation>

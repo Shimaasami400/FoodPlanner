@@ -12,25 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
-import com.example.foodplanner.home.view.MealCategoryAdapter;
-import com.example.foodplanner.home.view.OnCategoryClickListener;
-import com.example.foodplanner.model.dto.CategoriesItem;
-import com.example.foodplanner.model.dto.CategoryDetails;
+import com.example.foodplanner.model.dto.ListsDetails;
 
 import java.util.List;
 
 public class CategoryDetailsAdapter extends RecyclerView.Adapter<CategoryDetailsAdapter.ViewHolder>{
     private Context context;
-    private List<CategoryDetails> categoryDetailsList;
+    private List<ListsDetails> categoryDetailsList;
     private OnCategoryDetailsClickListener categoryDetailsClickListener;
 
-    public CategoryDetailsAdapter(Context context,List<CategoryDetails> categoryDetailsList,OnCategoryDetailsClickListener categoryDetailsClickListener){
+    public CategoryDetailsAdapter(Context context, List<ListsDetails> categoryDetailsList, OnCategoryDetailsClickListener categoryDetailsClickListener){
         this.context = context;
         this.categoryDetailsList = categoryDetailsList;
         this.categoryDetailsClickListener = categoryDetailsClickListener;
     }
 
-    public void setList(List<CategoryDetails> categoryDetailsList) {
+    public void setList(List<ListsDetails> categoryDetailsList) {
         this.categoryDetailsList = categoryDetailsList;
         notifyDataSetChanged();
     }
@@ -46,7 +43,7 @@ public class CategoryDetailsAdapter extends RecyclerView.Adapter<CategoryDetails
 
     @Override
     public void onBindViewHolder(@NonNull CategoryDetailsAdapter.ViewHolder holder, int position) {
-        CategoryDetails categoriesDetailsItem = categoryDetailsList.get(position);
+        ListsDetails categoriesDetailsItem = categoryDetailsList.get(position);
         holder.txtCategoryItemName.setText(categoriesDetailsItem.getStrMeal());
         Glide.with(context).load(categoriesDetailsItem.getStrMealThumb()).into(holder.categoryItemImage);
 

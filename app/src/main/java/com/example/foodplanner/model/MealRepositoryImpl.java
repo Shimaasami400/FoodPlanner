@@ -1,19 +1,19 @@
 package com.example.foodplanner.model;
 
-import androidx.lifecycle.LiveData;
-
+import com.example.foodplanner.model.dto.ListsDetailsResponse;
 import com.example.foodplanner.model.dto.MealsItem;
 import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
 import com.example.foodplanner.model.network.network.AreaMealCallback;
 import com.example.foodplanner.model.network.network.CategoryCallBack;
-import com.example.foodplanner.model.network.network.CategoryDetailsCallback;
 import com.example.foodplanner.model.network.network.IngredientsCallback;
 import com.example.foodplanner.model.network.network.MealRemoteDataSourceImpl;
 import com.example.foodplanner.model.network.network.RandomMealCallback;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealRepositoryImpl implements MealRepositoryView{
     MealRemoteDataSourceImpl mealRemoteDataSource;
@@ -52,9 +52,21 @@ public class MealRepositoryImpl implements MealRepositoryView{
         mealRemoteDataSource.AreasNetworkCall(areaMealCallback);
     }
 
+
+
+    public Single<ListsDetailsResponse> CategoryDetailsNetworkCall(String category) {
+       return mealRemoteDataSource.CategoryDetailsNetworkCall(category).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+
+    }
+
     @Override
-    public void CategoryDetailsNetworkCall(String category, CategoryDetailsCallback categoryDetailsCallback) {
-        mealRemoteDataSource.CategoryDetailsNetworkCall(category,categoryDetailsCallback);
+    public Single<ListsDetailsResponse> IngredientDetailsNetworkCall(String category) {
+        return mealRemoteDataSource.IngredientDetailsNetworkCall(category).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<ListsDetailsResponse> AreaDetailsNetworkCall(String category) {
+        return mealRemoteDataSource.AreaDetailsNetworkCall(category).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override

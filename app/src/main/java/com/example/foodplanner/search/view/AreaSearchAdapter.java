@@ -49,6 +49,15 @@ public class AreaSearchAdapter extends RecyclerView.Adapter<AreaSearchAdapter.Vi
     public void onBindViewHolder(@NonNull AreaSearchAdapter.ViewHolder holder, int position) {
         AreaItem areaItem = areaItemList.get(position);
         holder.txtAreaName.setText(areaItem.getStrArea());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onAreaClickListener != null) {
+                    onAreaClickListener.onAreaClick(areaItem);
+                }
+            }
+        });
     }
 
     @Override
