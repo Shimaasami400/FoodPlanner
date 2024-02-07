@@ -2,6 +2,7 @@ package com.example.foodplanner.model;
 
 import com.example.foodplanner.model.dto.ListsDetailsResponse;
 import com.example.foodplanner.model.dto.MealsItem;
+import com.example.foodplanner.model.dto.MealsItemResponse;
 import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
 import com.example.foodplanner.model.network.network.AreaMealCallback;
 import com.example.foodplanner.model.network.network.CategoryCallBack;
@@ -67,6 +68,11 @@ public class MealRepositoryImpl implements MealRepositoryView{
     @Override
     public Single<ListsDetailsResponse> AreaDetailsNetworkCall(String category) {
         return mealRemoteDataSource.AreaDetailsNetworkCall(category).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<MealsItemResponse> SearchByNameNetworkCall(String name) {
+        return mealRemoteDataSource.searchByNameNetworkCall(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override

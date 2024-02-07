@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,18 +39,18 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
     private Context context;
     private RecyclerView ingredientsRecyclerView;
     private RecyclerView areasRecyclerView;
-    List <IngredientsItem>ingredientsItemList;
-    List <AreaItem>areaItemList;
+    private EditText searchByName;
+    private List <IngredientsItem>ingredientsItemList;
+    private List <AreaItem>areaItemList;
     private ImageView image;
     private TextView mealName;
     private IngredientsPresenterView ingredientsPresenterView;
     private AreasPresenterView areasPresenterView;
     private LinearLayoutManager ingredientsLinearLayoutManager;
     private LinearLayoutManager areasLinearLayoutManager;
-
     private IngredientSearchAdapter ingredientSearchAdapter;
     private AreaSearchAdapter areaSearchAdapter;
-    CardView  ingredientCardView;
+    private CardView  ingredientCardView;
 
 
     @Override
@@ -73,6 +74,13 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        searchByName = view.findViewById(R.id.txtSearch);
+        searchByName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_searchFragment2_to_searchByNameFragment);
+            }
+        });
         ingredientsRecyclerView = view.findViewById(R.id.ingredientsRecyclerView);
         ingredientsLinearLayoutManager = new LinearLayoutManager(requireActivity());
         ingredientsLinearLayoutManager.setOrientation(RecyclerView.VERTICAL);

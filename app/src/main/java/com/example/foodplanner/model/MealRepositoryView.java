@@ -2,6 +2,7 @@ package com.example.foodplanner.model;
 
 import com.example.foodplanner.model.dto.ListsDetailsResponse;
 import com.example.foodplanner.model.dto.MealsItem;
+import com.example.foodplanner.model.dto.MealsItemResponse;
 import com.example.foodplanner.model.network.network.AreaMealCallback;
 import com.example.foodplanner.model.network.network.CategoryCallBack;
 import com.example.foodplanner.model.network.network.IngredientsCallback;
@@ -20,6 +21,7 @@ public interface MealRepositoryView {
     public Single<ListsDetailsResponse> CategoryDetailsNetworkCall(String category);
     public Single<ListsDetailsResponse> IngredientDetailsNetworkCall(String category);
     public Single<ListsDetailsResponse> AreaDetailsNetworkCall(String category);
+    public Single<MealsItemResponse> SearchByNameNetworkCall(String name);
 
 
     //Local

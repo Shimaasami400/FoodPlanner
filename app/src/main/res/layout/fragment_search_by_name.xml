@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".searchbar.view.SearchByNameFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchByNameResultsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSearchEdit"
+            app:layout_constraintVertical_bias="1.0"
+            app:spanCount="2"/>
+
+
+        <EditText
+            android:id="@+id/txtSearchEdit"
+            android:layout_width="362dp"
+            android:layout_height="66dp"
+            android:layout_marginTop="44dp"
+            android:background="@color/secondaryBrown"
+            android:textColor="@color/white"
+            android:clipToOutline="true"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="true"
+            android:hint="Search By Meal Name"
+            android:imeOptions="actionSearch"
+            android:padding="12dp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -149,5 +149,12 @@ public class MealRemoteDataSourceImpl implements MealRemoteDataSource{
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    @Override
+    public Single<MealsItemResponse> searchByNameNetworkCall(String name) {
+        return mealService.searchByName(name)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }
 

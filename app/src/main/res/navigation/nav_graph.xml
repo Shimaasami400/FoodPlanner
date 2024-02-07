@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_searchFragment2_to_areaDetailsFragment"
             app:destination="@id/areaDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment2_to_searchByNameFragment"
+            app:destination="@id/searchByNameFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -72,5 +75,14 @@
         <argument
             android:name="area_detail"
             app:argType="com.example.foodplanner.model.dto.AreaItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchByNameFragment"
+        android:name="com.example.foodplanner.searchbar.view.SearchByNameFragment"
+        android:label="Search By Name"
+        tools:layout="@layout/fragment_search_by_name">
+        <argument
+            android:name="search_by_name"
+            app:argType="com.example.foodplanner.model.dto.MealsItem" />
     </fragment>
 </navigation>

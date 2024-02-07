@@ -27,4 +27,7 @@ public interface MealService {
     public Single<ListsDetailsResponse> getMealsByIngredient(@Query("i") String category);
     @GET("filter.php")
     public Single<ListsDetailsResponse> getMealsByArea(@Query("a") String category);
+
+    @GET("search.php")
+    public Single<MealsItemResponse>searchByName(@Query("s") String mealName);
 }
