@@ -27,14 +27,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/txtViewMealNameItemDetails"
             app:layout_constraintStart_toStartOf="@+id/txtViewMealNameItemDetails"
             app:layout_constraintTop_toBottomOf="@+id/txtViewMealNameItemDetails"
-            tools:text="Beef category" />
+             />
 
         <TextView
             android:id="@+id/textViewMealCountryItemDetails"
-
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -43,8 +48,7 @@
             app:layout_constraintEnd_toEndOf="@+id/textViewMealCateItemDetails"
             app:layout_constraintStart_toStartOf="@+id/textViewMealCateItemDetails"
             app:layout_constraintTop_toBottomOf="@+id/textViewMealCateItemDetails"
-
-            tools:text="Italian food" />
+            />
 
         <ImageView
             android:id="@+id/imageViewAddToCalendarItemDetails"
@@ -71,22 +75,28 @@
 
         <TextView
             android:id="@+id/txtViewMealNameItemDetails"
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_medium"
             android:gravity="center"
+            android:textColor="@color/mainOrange"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/mealImage"
-            tools:text="Beef and Mustard Pie dsfasd adsfasdf af asf dfsa asd" />
+            app:layout_constraintTop_toBottomOf="@+id/mealImage" />
 
         <TextView
             android:id="@+id/textView24"
-
+            android:text="INGREDIENTS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:textColor="@color/mainBrown"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="20sp"
+            android:textStyle="bold"
 
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@id/barrier2" />
@@ -109,15 +119,18 @@
             app:layout_constraintTop_toBottomOf="@+id/textView24"
             tools:itemCount="10"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
             tools:orientation="horizontal" />
 
         <TextView
             android:id="@+id/textView25"
-
-            android:layout_width="110dp"
-            android:layout_height="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="PROCEDURES"
+            android:textColor="@color/mainBrown"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewIngredientsItemDetails" />
 
@@ -127,22 +140,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="bol"
-
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/textView25"/>
 
-
-        <TextView
-            android:id="@+id/textView10"
-
-            android:layout_width="237dp"
-            android:layout_height="22dp"
-            android:layout_marginTop="32dp"
-
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textViewProcedures" />
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/ytPlayer"
@@ -154,7 +156,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@id/textView10"
+            app:layout_constraintTop_toBottomOf="@id/textViewProcedures"
             app:layout_constraintVertical_bias="1.0" />
 
         <androidx.constraintlayout.widget.Guideline

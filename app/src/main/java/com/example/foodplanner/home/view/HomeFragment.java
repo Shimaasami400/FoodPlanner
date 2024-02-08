@@ -83,6 +83,8 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
         categoryMealPresenterView = new CategoryMealPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(),MealLocalDataSourceImpl.getInstance(requireActivity())));
         categoryAdapter.setCategoryClickListener(this);
         categoryMealPresenterView.getCategory();
+
+
     }
 
     @Override

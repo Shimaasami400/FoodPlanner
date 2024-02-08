@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.category.presenter.CategoryDetailsPresenterImp;
 import com.example.foodplanner.category.presenter.CategoryDetailsPresenterView;
@@ -24,6 +26,7 @@ import com.example.foodplanner.model.MealRepositoryImpl;
 import com.example.foodplanner.model.dto.CategoriesItem;
 import com.example.foodplanner.model.dto.ListsDetails;
 import com.example.foodplanner.model.dto.ListsDetailsResponse;
+import com.example.foodplanner.model.dto.MealsItem;
 import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
 import com.example.foodplanner.model.network.network.MealRemoteDataSourceImpl;
 
@@ -62,22 +65,17 @@ public class CategoryDetailsFragment extends Fragment implements CategoryDetails
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Initialize RecyclerView and adapter
-        recyclerView = view.findViewById(R.id.categoryDetailsRecyclerView); // Assuming the RecyclerView id is 'recyclerView' in your layout
+        recyclerView = view.findViewById(R.id.categoryDetailsRecyclerView);
         categoryDetailsAdapter = new CategoryDetailsAdapter(requireActivity(),new ArrayList<>(),this);
-        //recyclerView.setAdapter(categoryDetailsAdapter);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setLayoutManager(gridLayoutManager);
-        // Initialize presenter
         categoryDetailsPresenterView = new CategoryDetailsPresenterImp(this, MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(), MealLocalDataSourceImpl.getInstance(requireActivity())));
 
         category = (CategoriesItem) getArguments().getSerializable("category");
         Toast.makeText(requireActivity(), "strmeal"+category.getStrCategory(), Toast.LENGTH_SHORT).show();
-        // Fetch category details if categoryId is available
         if (category != null) {
-            //categoryDetailsPresenterView.getCategoryDetail(category.getStrCategory());
             categoryDetailsList = categoryDetailsPresenterView.getCategoryDetail(category.getStrCategory());
+            Log.i("TAG", "s()categoryDetailsList " +categoryDetailsList);
             categoryDetailsList.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(item -> {
@@ -88,6 +86,8 @@ public class CategoryDetailsFragment extends Fragment implements CategoryDetails
                                 Log.i("TAG", "showCategoryDetail: unable to show products because: " + throwable.getMessage());
                             });
         }
+
+
     }
 
     @Override
@@ -100,7 +100,9 @@ public class CategoryDetailsFragment extends Fragment implements CategoryDetails
     }
 
     @Override
-    public void onCategoryClick(String category) {
-
+    public void onCategoryClick(ListsDetails listsDetails) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("categoryDetail", listsDetails);
+        Navigation.findNavController(requireView()).navigate(R.id.action_categoryDetailsFragment_to_listDetailFragment, bundle);
     }
 }

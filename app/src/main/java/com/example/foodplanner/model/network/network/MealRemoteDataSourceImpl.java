@@ -4,6 +4,7 @@ import com.example.foodplanner.model.dto.AreaItemResponse;
 import com.example.foodplanner.model.dto.CategoriesItemResponse;
 import com.example.foodplanner.model.dto.ListsDetailsResponse;
 import com.example.foodplanner.model.dto.IngredientsItemResponse;
+import com.example.foodplanner.model.dto.MealsDetailResponse;
 import com.example.foodplanner.model.dto.MealsItemResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -153,6 +154,13 @@ public class MealRemoteDataSourceImpl implements MealRemoteDataSource{
     @Override
     public Single<MealsItemResponse> searchByNameNetworkCall(String name) {
         return mealService.searchByName(name)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<MealsDetailResponse> getMealDetailNetworkCall(String name) {
+        return mealService.getMealById(name)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -47,6 +47,16 @@ public class IngredientDetailsAdapter extends RecyclerView.Adapter<IngredientDet
         ListsDetails categoriesDetailsItem = ingredientDetailsList.get(position);
         holder.txtIngredientItemName.setText(categoriesDetailsItem.getStrMeal());
         Glide.with(context).load(categoriesDetailsItem.getStrMealThumb()).into(holder.ingredientItemImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ingredientDetailsClickListener != null) {
+                    ingredientDetailsClickListener.onIngredientClick(categoriesDetailsItem);
+                }
+            }
+        });
+
     }
 
     @Override

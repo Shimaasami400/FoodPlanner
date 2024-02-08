@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -97,7 +98,9 @@ public class IngredientDetailsFragment extends Fragment implements IngredientDet
     }
 
     @Override
-    public void onIngredientClick(String ingredient) {
-
+    public void onIngredientClick(ListsDetails ingredientDetails) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ingredientDetails", ingredientDetails);
+        Navigation.findNavController(requireView()).navigate(R.id.action_ingredientDetailsFragment_to_listDetailFragment, bundle);
     }
 }

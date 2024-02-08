@@ -45,6 +45,15 @@ public class AreaDetailsAdapter extends RecyclerView.Adapter<AreaDetailsAdapter.
         holder.txtAreaItemName.setText(areaDetailsItem.getStrMeal());
         Glide.with(context).load(areaDetailsItem.getStrMealThumb()).into(holder.areaItemImage);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (areaDetailsClickListener != null) {
+                    areaDetailsClickListener.onAreaClick(areaDetailsItem);
+                }
+            }
+        });
+
     }
 
     @Override

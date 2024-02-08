@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:backgroundTint="@color/white"
-    android:id="@+id/row_ingredient_layout">
+    android:id="@+id/row_list_ingredient_layout">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/imageViewIngredientImageBGItem"
+        android:id="@+id/imageViewIngredientImage"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="8dp"
@@ -19,19 +18,19 @@
         app:riv_oval="true" />
 
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imageViewIngredientItem"
-            android:layout_gravity="center"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewIngredientImageBGItem"
-            app:layout_constraintEnd_toEndOf="@+id/imageViewIngredientImageBGItem"
-            app:layout_constraintStart_toStartOf="@+id/imageViewIngredientImageBGItem"
-            app:layout_constraintTop_toTopOf="@+id/imageViewIngredientImageBGItem"
-            app:riv_oval="true" />
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageViewListIngredientItem"
+        android:layout_gravity="center"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewIngredientImage"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewIngredientImage"
+        app:layout_constraintStart_toStartOf="@+id/imageViewIngredientImage"
+        app:layout_constraintTop_toTopOf="@+id/imageViewIngredientImage"
+        app:riv_oval="true" />
 
     <TextView
-        android:id="@+id/tvIngredientNameItem"
+        android:id="@+id/tvIngredientListNameItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -42,26 +41,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewIngredientImageBGItem"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIngredientImage"
         app:layout_constraintVertical_bias="0.0" />
     <TextView
-        android:id="@+id/textViewIngredientMeasureItem"
+        android:id="@+id/textViewIngredientListMeasureItem"
         android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewIngredientImageBGItem"
-        app:layout_constraintStart_toStartOf="@+id/imageViewIngredientImageBGItem"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewIngredientImageBGItem" />
+        app:layout_constraintEnd_toEndOf="@+id/imageViewIngredientImage"
+        app:layout_constraintStart_toStartOf="@+id/imageViewIngredientImage"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewIngredientImage" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-
-
-
-

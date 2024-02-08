@@ -1,5 +1,7 @@
 package com.example.foodplanner.Area.view;
 
+import com.example.foodplanner.model.dto.ListsDetails;
+
 public interface OnAreaDetailsClickListener {
-    void onAreaClick(String category);
+    void onAreaClick(ListsDetails category);
 }

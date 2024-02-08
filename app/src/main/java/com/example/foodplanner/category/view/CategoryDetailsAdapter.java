@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.dto.ListsDetails;
+import com.example.foodplanner.model.dto.MealsItem;
 
 import java.util.List;
 
@@ -46,6 +47,15 @@ public class CategoryDetailsAdapter extends RecyclerView.Adapter<CategoryDetails
         ListsDetails categoriesDetailsItem = categoryDetailsList.get(position);
         holder.txtCategoryItemName.setText(categoriesDetailsItem.getStrMeal());
         Glide.with(context).load(categoriesDetailsItem.getStrMealThumb()).into(holder.categoryItemImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (categoryDetailsClickListener != null) {
+                    categoryDetailsClickListener.onCategoryClick(categoriesDetailsItem);
+                }
+            }
+        });
 
     }
 

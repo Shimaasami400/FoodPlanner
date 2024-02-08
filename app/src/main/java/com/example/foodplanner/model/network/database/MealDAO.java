@@ -16,7 +16,7 @@ import io.reactivex.rxjava3.core.Single;
 @Dao
 public interface MealDAO {
     @Query("SELECT * FROM meals")
-    Single<List<MealsItem>> getAllFavoriteMeals();//get the favList.
+    Single<List<MealsItem>> getAllFavoriteMeals();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertMealToFavorite(MealsItem mealsItem);

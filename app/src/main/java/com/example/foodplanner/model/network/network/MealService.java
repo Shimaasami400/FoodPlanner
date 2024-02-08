@@ -4,6 +4,7 @@ import com.example.foodplanner.model.dto.AreaItemResponse;
 import com.example.foodplanner.model.dto.CategoriesItemResponse;
 import com.example.foodplanner.model.dto.ListsDetailsResponse;
 import com.example.foodplanner.model.dto.IngredientsItemResponse;
+import com.example.foodplanner.model.dto.MealsDetailResponse;
 import com.example.foodplanner.model.dto.MealsItemResponse;
 
 import io.reactivex.rxjava3.core.Single;
@@ -30,4 +31,7 @@ public interface MealService {
 
     @GET("search.php")
     public Single<MealsItemResponse>searchByName(@Query("s") String mealName);
+
+    @GET("lookup.php")
+    public Single<MealsDetailResponse> getMealById(@Query("i") String id);
 }

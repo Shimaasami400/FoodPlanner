@@ -20,15 +20,18 @@
     <fragment
         android:id="@+id/mealDetailsFragment"
         android:name="com.example.foodplanner.mealdetail.view.MealDetailsFragment"
-        android:label="Meal Details"
+        android:label="Meal Detail"
         tools:layout="@layout/fragment_meal_details">
         <argument
             android:name="meal"
             app:argType="com.example.foodplanner.model.dto.MealsItem" />
+        <argument
+            android:name="categorydetailnav"
+            app:argType="com.example.foodplanner.model.dto.MealsItem" />
     </fragment>
     <fragment
         android:id="@+id/calenderFragment2"
-        android:name="com.example.foodplanner.CalenderFragment"
+        android:name="com.example.foodplanner.weekplan.view.CalenderFragment"
         android:label="Calender"
         tools:layout="@layout/fragment_calender" />
     <fragment
@@ -59,6 +62,9 @@
         <argument
             android:name="categorydetail"
             app:argType="com.example.foodplanner.model.dto.CategoriesItem" />
+        <action
+            android:id="@+id/action_categoryDetailsFragment_to_listDetailFragment"
+            app:destination="@id/listDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/ingredientDetailsFragment"
@@ -67,6 +73,9 @@
         <argument
             android:name=" ingredient_detail_list"
             app:argType="com.example.foodplanner.model.dto.IngredientsItem" />
+        <action
+            android:id="@+id/action_ingredientDetailsFragment_to_listDetailFragment"
+            app:destination="@id/listDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/areaDetailsFragment"
@@ -75,6 +84,9 @@
         <argument
             android:name="area_detail"
             app:argType="com.example.foodplanner.model.dto.AreaItem" />
+        <action
+            android:id="@+id/action_areaDetailsFragment_to_listDetailFragment"
+            app:destination="@id/listDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchByNameFragment"
@@ -84,5 +96,14 @@
         <argument
             android:name="search_by_name"
             app:argType="com.example.foodplanner.model.dto.MealsItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/listDetailFragment"
+        android:name="com.example.foodplanner.listsdetail.view.ListDetailFragment"
+        android:label="Meal Detail"
+        tools:layout="@layout/fragment_list_detail" >
+        <argument
+            android:name="list_item_detail"
+            app:argType="com.example.foodplanner.model.dto.MealsDetail" />
     </fragment>
 </navigation>

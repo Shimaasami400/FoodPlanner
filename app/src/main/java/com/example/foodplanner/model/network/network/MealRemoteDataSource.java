@@ -1,6 +1,7 @@
 package com.example.foodplanner.model.network.network;
 
 import com.example.foodplanner.model.dto.ListsDetailsResponse;
+import com.example.foodplanner.model.dto.MealsDetailResponse;
 import com.example.foodplanner.model.dto.MealsItemResponse;
 
 import io.reactivex.rxjava3.core.Single;
@@ -14,5 +15,6 @@ public interface MealRemoteDataSource {
     public Single<ListsDetailsResponse> IngredientDetailsNetworkCall(String category);
     public Single<ListsDetailsResponse> AreaDetailsNetworkCall(String category);
     public Single<MealsItemResponse> searchByNameNetworkCall(String name);
+    public Single<MealsDetailResponse> getMealDetailNetworkCall(String name);
 
 }

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -103,7 +104,10 @@ public class AreaDetailsFragment extends Fragment implements AreaDetailsView, On
     }
 
     @Override
-    public void onAreaClick(String category) {
+    public void onAreaClick(ListsDetails areaDetails) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("areaDetails", areaDetails);
+        Navigation.findNavController(requireView()).navigate(R.id.action_areaDetailsFragment_to_listDetailFragment, bundle);
 
     }
 }
