@@ -20,19 +20,20 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    EditText txtMail;
-    EditText txtPassword;
-    Button btnlogIn;
-    TextView tvregister;
+    private  EditText txtMail;
+    private EditText txtPassword;
+    private Button btnlogIn;
+    private TextView tvregister;
+    private TextView tvSkip;
 
-    String email,password;
+    private String email,password;
 
     @Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(),Home.class);
             startActivity(intent);
             finish();
         }
@@ -47,6 +48,20 @@ public class Login extends AppCompatActivity {
         btnlogIn = findViewById(R.id.button);
         tvregister = findViewById(R.id.tvLogin);
         mAuth = FirebaseAuth.getInstance();
+        tvSkip = findViewById(R.id.tvLoginSkip);
+
+        tvSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to the home activity directly without authentication
+                Intent intent = new Intent(Login.this, Home.class);
+                // Set the guest mode flag in the intent
+                intent.putExtra("guestMode", true);
+                startActivity(intent);
+                finish(); // Finish the current activity to prevent the user from going back to it
+            }
+        });
+
 
 
         tvregister.setOnClickListener(new View.OnClickListener() {
@@ -76,14 +91,15 @@ public class Login extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent = new Intent(Login.this, Home.class);
                                     startActivity(intent);
-                                    finish();
+                                    finish(); // Finish the current activity to prevent the user from going back to it
                                 } else {
                                     Toast.makeText(Login.this, "Wrong email or password", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
+
             }
         });
     }

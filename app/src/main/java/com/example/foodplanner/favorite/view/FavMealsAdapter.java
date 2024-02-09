@@ -45,7 +45,7 @@ public class FavMealsAdapter extends RecyclerView.Adapter<FavMealsAdapter.ViewHo
 
     public void setMealFavList(List<MealsItem> favMealList) {
         this.favMealList = favMealList;
-            }
+    }
 
     @NonNull
     @Override
@@ -86,16 +86,16 @@ public class FavMealsAdapter extends RecyclerView.Adapter<FavMealsAdapter.ViewHo
             mealImage = itemView.findViewById(R.id.MealImage);
             deleteMealImage = itemView.findViewById(R.id.deleteImageView);
             mealName = itemView.findViewById(R.id.tvMealName);
-             cardView = itemView.findViewById(R.id.favCardView);
+            cardView = itemView.findViewById(R.id.favCardView);
 
-            }
+        }
 
         public void bind(MealsItem mealsItem) {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
                     mealName.setText(mealsItem.getStrMeal());
-                     Glide.with(context).load(mealsItem.getStrMealThumb()).into(mealImage);
+                    Glide.with(context).load(mealsItem.getStrMealThumb()).into(mealImage);
 
                 }
             });

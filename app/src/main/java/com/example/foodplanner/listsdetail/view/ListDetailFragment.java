@@ -59,6 +59,8 @@ public class ListDetailFragment extends Fragment implements ListDetailView, OnMe
     private ListsDetails listsDetails;
     private ListsDetails listAreaDetails;
     private ListsDetails listingredientDetails;
+    private MealsItem searchByName;
+    private MealsItem favMeal;
     private Context context;
     private ListDetailAdapter listDetailAdapter;
     private RecyclerView recyclerView;
@@ -111,11 +113,13 @@ public class ListDetailFragment extends Fragment implements ListDetailView, OnMe
         listsDetails = (ListsDetails) getArguments().getSerializable("categoryDetail");
         listAreaDetails = (ListsDetails) getArguments().getSerializable("areaDetails");
         listingredientDetails =(ListsDetails) getArguments().getSerializable("ingredientDetails");
+        searchByName = (MealsItem) getArguments().getSerializable("SearchByName");
+        favMeal = (MealsItem) getArguments().getSerializable("Favorite");
 
 
         Single<MealsDetailResponse> mealsDetailSingle = listDetailPresenterView.getMealDetail(listsDetails != null ? listsDetails.getIdMeal() :
                 listAreaDetails != null ? listAreaDetails.getIdMeal() :
-                        listingredientDetails != null ? listingredientDetails.getIdMeal() : "");
+                        listingredientDetails != null ? listingredientDetails.getIdMeal() : searchByName != null ? searchByName.getIdMeal() :favMeal != null ? favMeal.getIdMeal() :"");
         Log.i("TAG", "mealsDetailSingle = " + mealsDetailSingle);
 
         mealsDetailSingle.subscribeOn(Schedulers.io())
@@ -129,6 +133,11 @@ public class ListDetailFragment extends Fragment implements ListDetailView, OnMe
                     tvProcedures.setText(mealsDetail.getStrInstructions());
                     Glide.with(requireActivity()).load(mealsDetail.getStrMealThumb()).into(itemImage);
                     listDetailAdapter.setMealItemDetailList(GeneratingListIngridentsArrayLists.getIngridentsListArray(mealsDetail));
+
+                    addToFavImage.setOnClickListener(v -> {
+                        listDetailPresenterView.addToFav(mealsDetail);
+                        addToFavImage.setImageResource(R.drawable.fullheart);
+                    });
 
                     String youtubeVideoId = mealsDetail.getStrYoutube();
                     if (youtubeVideoId != null && !youtubeVideoId.isEmpty()) {
@@ -149,9 +158,6 @@ public class ListDetailFragment extends Fragment implements ListDetailView, OnMe
                     Toast.makeText(requireContext(), "Error fetching meal details", Toast.LENGTH_SHORT).show();
                 });
 
-        addToFavImage.setOnClickListener(v -> {
-
-        });
 
     }
 
@@ -167,7 +173,7 @@ public class ListDetailFragment extends Fragment implements ListDetailView, OnMe
 
     @Override
     public void addMealToFav(MealsDetail mealsDetail) {
-
+        mealRepositoryView.insertMeal(mealsDetail);
     }
 
     @Override

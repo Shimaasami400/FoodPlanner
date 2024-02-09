@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("item", item);
-                Navigation.findNavController(v).navigate(R.id.mealDetailsFragment, bundle);
+                Navigation.findNavController(v).navigate(R.id.action_randomMealFragment_to_mealDetailsFragment, bundle);
             }
         });
     }

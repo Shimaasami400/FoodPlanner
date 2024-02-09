@@ -21,8 +21,10 @@ public class IngridentsAdapter extends RecyclerView.Adapter<IngridentsAdapter.Vi
     private Context context;
     private List<Measurement> mealItemDetailList;
 
-    public IngridentsAdapter(Context context) {
+    public IngridentsAdapter(Context context,List<Measurement> mealItemDetailList) {
         this.context = context;
+        this.mealItemDetailList = mealItemDetailList;
+
     }
 
     public void setMealItemDetailList(List<Measurement> mealItemDetailList) {
@@ -49,6 +51,7 @@ public class IngridentsAdapter extends RecyclerView.Adapter<IngridentsAdapter.Vi
 
     @Override
     public int getItemCount() {
+       // if (mealItemDetailList == null) return 0;
         return mealItemDetailList.size();
     }
 

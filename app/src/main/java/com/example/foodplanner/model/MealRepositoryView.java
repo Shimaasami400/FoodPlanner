@@ -1,9 +1,11 @@
 package com.example.foodplanner.model;
 
 import com.example.foodplanner.model.dto.ListsDetailsResponse;
+import com.example.foodplanner.model.dto.MealsDetail;
 import com.example.foodplanner.model.dto.MealsDetailResponse;
 import com.example.foodplanner.model.dto.MealsItem;
 import com.example.foodplanner.model.dto.MealsItemResponse;
+import com.example.foodplanner.model.dto.WeekPlan;
 import com.example.foodplanner.model.network.network.AreaMealCallback;
 import com.example.foodplanner.model.network.network.CategoryCallBack;
 import com.example.foodplanner.model.network.network.IngredientsCallback;
@@ -28,8 +30,18 @@ public interface MealRepositoryView {
 
     //Local
     public Single<List<MealsItem>> getFavoriteMeals();
+    public Single<List<MealsDetail>>getListMealDetails();
     public void deleteMeal(MealsItem mealsItem);
     public void insertMeal(MealsItem mealsItem);
+    public void deleteMeal(MealsDetail mealsItem);
+    public void insertMeal(MealsDetail mealsItem);
+
+    public Single<List<WeekPlan>> getWeekPlanMeals();
+    Single<List<WeekPlan>> getMealsForDate(String date);
+    public void deleteWeekPlanMeal( WeekPlan weekPlan);
+    public void insertWeekPlanMeal(WeekPlan weekPlan);
+
+
 
 
     Single<List<MealsItem>> getFavoriteMealsSingle();

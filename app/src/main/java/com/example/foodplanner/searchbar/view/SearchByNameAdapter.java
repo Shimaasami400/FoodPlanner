@@ -48,6 +48,15 @@ public class SearchByNameAdapter extends RecyclerView.Adapter<SearchByNameAdapte
         MealsItem mealsItem  = searchByNameList.get(position);
         holder.txtsearchByName.setText(mealsItem.getStrMeal());
         Glide.with(context).load(mealsItem.getStrMealThumb()).into(holder.searchByNameItemImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (searchByNameClickListener != null) {
+                    searchByNameClickListener.onSearchByNameClick(mealsItem);
+                }
+            }
+        });
     }
 
     @Override

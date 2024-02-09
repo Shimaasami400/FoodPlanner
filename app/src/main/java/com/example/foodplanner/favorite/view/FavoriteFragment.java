@@ -60,7 +60,7 @@ public class FavoriteFragment extends Fragment implements FavouriteMealView, OnF
 
         favouriteMealPresenterView = new FavouriteMealPresenterImp(this, MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(), MealLocalDataSourceImpl.getInstance(requireActivity())));
         showList();
-            }
+    }
     @Override
     public void onDeleteItemClick(MealsItem mealsItem) {
         favouriteMealPresenterView.deleteMeal(mealsItem);

@@ -1,9 +1,11 @@
 package com.example.foodplanner.model;
 
 import com.example.foodplanner.model.dto.ListsDetailsResponse;
+import com.example.foodplanner.model.dto.MealsDetail;
 import com.example.foodplanner.model.dto.MealsDetailResponse;
 import com.example.foodplanner.model.dto.MealsItem;
 import com.example.foodplanner.model.dto.MealsItemResponse;
+import com.example.foodplanner.model.dto.WeekPlan;
 import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
 import com.example.foodplanner.model.network.network.AreaMealCallback;
 import com.example.foodplanner.model.network.network.CategoryCallBack;
@@ -87,6 +89,11 @@ public class MealRepositoryImpl implements MealRepositoryView{
     }
 
     @Override
+    public Single<List<MealsDetail>> getListMealDetails() {
+        return mealLocalDataSource.getAllFavoriteStoredMealsDetail();
+    }
+
+    @Override
     public void deleteMeal(MealsItem mealsItem) {
         mealLocalDataSource.deleteMealFromFavorite(mealsItem);
     }
@@ -94,6 +101,36 @@ public class MealRepositoryImpl implements MealRepositoryView{
     @Override
     public void insertMeal(MealsItem mealsItem) {
         mealLocalDataSource.insertMealToFavorite(mealsItem);
+    }
+
+    @Override
+    public void deleteMeal(MealsDetail mealsItem) {
+        mealLocalDataSource.deleteMealDetailFromFavorite(mealsItem);
+    }
+
+    @Override
+    public void insertMeal(MealsDetail mealsItem) {
+        mealLocalDataSource.insertMealDetailToFavorite(mealsItem);
+    }
+
+    @Override
+    public Single<List<WeekPlan>> getWeekPlanMeals() {
+        return mealLocalDataSource.getWeekPlanMeals();
+    }
+
+    @Override
+    public Single<List<WeekPlan>> getMealsForDate(String date) {
+        return mealLocalDataSource.getMealsForDate(date);
+    }
+
+    @Override
+    public void deleteWeekPlanMeal(WeekPlan weekPlan) {
+        mealLocalDataSource.deleteWeekPlanMealFromCalender(weekPlan);
+    }
+
+    @Override
+    public void insertWeekPlanMeal(WeekPlan weekPlan) {
+        mealLocalDataSource.insertWeekPlanMealToCalender(weekPlan);
     }
 
     @Override
