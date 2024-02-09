@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,8 +7,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchByNameResultsRecyclerView"
@@ -27,19 +26,16 @@
 
         <EditText
             android:id="@+id/txtSearchEdit"
-            android:layout_width="362dp"
-            android:layout_height="66dp"
-            android:layout_marginTop="44dp"
-            android:background="@color/secondaryBrown"
-            android:textColor="@color/white"
-            android:clipToOutline="true"
-            android:clickable="true"
-            android:ems="10"
-            android:focusable="true"
+            android:layout_width="369dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/edit_text_bg"
             android:hint="Search By Meal Name"
-            android:imeOptions="actionSearch"
-            android:padding="12dp"
-            android:singleLine="true"
+            android:inputType="text"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

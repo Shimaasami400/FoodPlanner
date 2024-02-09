@@ -38,6 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/nav_fragment"
         app:menu="@menu/home_menu"
         app:itemBackground="@color/mainOrange"
+        app:itemActiveIndicatorStyle="@color/white"
         app:itemIconTint="@color/icons_color"
         app:itemTextColor="@color/white"
         android:background="@color/white"

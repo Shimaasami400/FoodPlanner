@@ -6,10 +6,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.foodplanner.model.dto.MealsDetail;
 import com.example.foodplanner.model.dto.MealsItem;
+import com.example.foodplanner.model.dto.WeekPlan;
 
 
-@Database(entities = {MealsItem.class}, version =1)
+@Database(entities = {MealsItem.class, WeekPlan.class , MealsDetail.class}, version = 3)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract MealDAO getMealsDAO();
     private static AppDataBase instance = null;

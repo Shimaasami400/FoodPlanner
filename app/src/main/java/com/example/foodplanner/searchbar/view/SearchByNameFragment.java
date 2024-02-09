@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -93,6 +94,11 @@ public class SearchByNameFragment extends Fragment implements SearchByNameView, 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String searchText = s.toString().trim(); // Get the search text
 
+                if (originalList == null) {
+                    // Original list is null, cannot perform filtering
+                    return;
+                }
+
                 if (searchText.isEmpty()) {
                     // If the search text is empty, show the original list
                     searchByNameAdapter.setList(originalList);
@@ -132,7 +138,10 @@ public class SearchByNameFragment extends Fragment implements SearchByNameView, 
         // Show error message
     }
 
-    public void onSearchByNameClick(MealsItem item) {
-        // Handle click on search item
+    public void onSearchByNameClick(MealsItem searchByName) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("SearchByName", searchByName);
+        Navigation.findNavController(requireView()).navigate(R.id.action_searchByNameFragment_to_listDetailFragment, bundle);
+
     }
 }
