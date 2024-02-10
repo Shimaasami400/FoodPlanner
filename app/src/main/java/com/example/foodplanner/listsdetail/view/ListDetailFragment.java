@@ -136,7 +136,6 @@ public class ListDetailFragment extends Fragment implements ListDetailView, OnMe
 
                     addToFavImage.setOnClickListener(v -> {
                         listDetailPresenterView.addToFav(mealsDetail);
-                        addToFavImage.setImageResource(R.drawable.fullheart);
                     });
 
                     String youtubeVideoId = mealsDetail.getStrYoutube();

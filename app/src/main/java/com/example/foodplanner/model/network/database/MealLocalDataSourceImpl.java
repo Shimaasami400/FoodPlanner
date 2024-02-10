@@ -97,4 +97,20 @@ public class MealLocalDataSourceImpl implements MealLocalDataSource{
         // Assuming you have a method in your DAO to query meals for a specific date
         return mealDAO.getMealsForDate(date);
     }
+
+    @Override
+    public void deleteAllTheCalenderList() {
+        new Thread(() -> {
+            mealDAO.deleteAllTheCalenderList();
+            Log.i("TAG", "Deleting all meals from the calendar list");
+        }).start();
+    }
+
+    @Override
+    public void deleteAllTheFavoriteList() {
+        new Thread(() -> {
+            mealDAO.deleteAllTheFavoriteList();
+            Log.i("TAG", "Deleting all meals from the favorite list");
+        }).start();
+    }
 }

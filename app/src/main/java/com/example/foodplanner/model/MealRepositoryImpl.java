@@ -12,6 +12,7 @@ import com.example.foodplanner.model.network.network.CategoryCallBack;
 import com.example.foodplanner.model.network.network.IngredientsCallback;
 import com.example.foodplanner.model.network.network.MealRemoteDataSourceImpl;
 import com.example.foodplanner.model.network.network.RandomMealCallback;
+import com.example.foodplanner.model.network.remotedb.RemoteDatabaseImp;
 
 import java.util.List;
 
@@ -22,11 +23,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MealRepositoryImpl implements MealRepositoryView{
     MealRemoteDataSourceImpl mealRemoteDataSource;
     MealLocalDataSourceImpl mealLocalDataSource;
+    RemoteDatabaseImp remoteDatabaseImp;
     static MealRepositoryImpl mealRepository;
 
     public MealRepositoryImpl(MealRemoteDataSourceImpl mealRemoteDataSource,MealLocalDataSourceImpl mealLocalDataSource){
         this.mealRemoteDataSource = mealRemoteDataSource;
         this.mealLocalDataSource = mealLocalDataSource;
+        this.remoteDatabaseImp = new RemoteDatabaseImp();
     }
 
     public static MealRepositoryImpl getInstance(MealRemoteDataSourceImpl mealRemoteDataSource,MealLocalDataSourceImpl mealLocalDataSource){
@@ -95,11 +98,13 @@ public class MealRepositoryImpl implements MealRepositoryView{
 
     @Override
     public void deleteMeal(MealsItem mealsItem) {
+        deleteMealRemoteFromFavorite(mealsItem);
         mealLocalDataSource.deleteMealFromFavorite(mealsItem);
     }
 
     @Override
     public void insertMeal(MealsItem mealsItem) {
+        insertMealRemoteToFavorite(mealsItem);
         mealLocalDataSource.insertMealToFavorite(mealsItem);
     }
 
@@ -125,17 +130,58 @@ public class MealRepositoryImpl implements MealRepositoryView{
 
     @Override
     public void deleteWeekPlanMeal(WeekPlan weekPlan) {
+        deleteMealRemoteFromWeekPlan(weekPlan);
         mealLocalDataSource.deleteWeekPlanMealFromCalender(weekPlan);
     }
 
     @Override
     public void insertWeekPlanMeal(WeekPlan weekPlan) {
+        insertMealRemoteToWeekPlan(weekPlan);
         mealLocalDataSource.insertWeekPlanMealToCalender(weekPlan);
     }
 
     @Override
     public Single<List<MealsItem>> getFavoriteMealsSingle() {
         return mealLocalDataSource.getAllFavoriteStoredMeals();
+    }
+
+    //RemoteDB
+
+    @Override
+    public void insertMealRemoteToFavorite(MealsItem mealsItem) {
+        remoteDatabaseImp.insertToFavorite(mealsItem)
+                .subscribe(() -> {
+                        },
+                        throwable -> {
+                });
+
+    }
+
+    @Override
+    public void insertMealRemoteToWeekPlan(WeekPlan weekPlan) {
+        remoteDatabaseImp.insertToWeekPlan(weekPlan)
+                .subscribe(()->{},throwable ->{
+
+                });
+    }
+
+    @Override
+    public void deleteMealRemoteFromFavorite(MealsItem mealsItem) {
+        remoteDatabaseImp.deleteFromFavorite(mealsItem);
+    }
+
+    @Override
+    public void deleteMealRemoteFromWeekPlan(WeekPlan weekPlan) {
+        remoteDatabaseImp.deleteFromWeekPlane(weekPlan);
+    }
+    @Override
+    public void deleteAllTheCalenderList() {
+        mealLocalDataSource.deleteAllTheCalenderList();
+    }
+
+    @Override
+    public void deleteAllTheFavoriteList() {
+        mealLocalDataSource.deleteAllTheFavoriteList();
     }
 
 }

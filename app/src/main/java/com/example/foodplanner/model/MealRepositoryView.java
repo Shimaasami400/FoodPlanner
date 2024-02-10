@@ -42,9 +42,16 @@ public interface MealRepositoryView {
     public void insertWeekPlanMeal(WeekPlan weekPlan);
 
 
-
-
     Single<List<MealsItem>> getFavoriteMealsSingle();
 
+
+    //RemoteDB
+    void insertMealRemoteToFavorite(MealsItem mealsItem);
+    void insertMealRemoteToWeekPlan(WeekPlan weekPlan);
+    void deleteMealRemoteFromFavorite(MealsItem mealsItem);
+    void deleteMealRemoteFromWeekPlan(WeekPlan weekPlan);
+
+    public void deleteAllTheCalenderList();
+    public void deleteAllTheFavoriteList();
 
 }

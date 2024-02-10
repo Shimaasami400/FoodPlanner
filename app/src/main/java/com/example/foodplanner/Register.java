@@ -3,6 +3,7 @@ package com.example.foodplanner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -28,6 +31,7 @@ public class Register extends AppCompatActivity {
     TextView tvlogin;
 
     String email,password;
+    private TextView tvSkip;
 
     @Override
     public void onStart() {
@@ -50,14 +54,16 @@ public class Register extends AppCompatActivity {
         btnsignUp = findViewById(R.id.button);
         tvlogin = findViewById(R.id.tvRegist);
 
+
         mAuth = FirebaseAuth.getInstance();
 
         btnsignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email = txtMail.getText().toString();
-                password = txtPassword.getText().toString();
-                //Checking if email and password are empty or not.
+                email = txtMail.getText().toString().trim();
+                password = txtPassword.getText().toString().trim();
+
+
                 if(TextUtils.isEmpty(email)){
                     Toast.makeText(Register.this, "Please Enter Your Email", Toast.LENGTH_SHORT).show();
                     return;
@@ -73,6 +79,7 @@ public class Register extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    saveUserEmailToDatabase(email);
                                     Toast.makeText(Register.this, "Account is created successfully",
                                             Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(Register.this, Home.class);
@@ -99,4 +106,18 @@ public class Register extends AppCompatActivity {
         });
     }
 
+    private String encodeEmailForFirebase(String email) {
+        return email.replace(".",",");
+    }
+    private void saveUserEmailToDatabase(String email) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        String encodedEmail = encodeEmailForFirebase(email);
+        databaseReference.child(encodedEmail).setValue(email)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "User email saved successfully", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to save user email: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
 }

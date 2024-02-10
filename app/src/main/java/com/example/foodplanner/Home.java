@@ -13,14 +13,22 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.foodplanner.model.MealRepositoryImpl;
+import com.example.foodplanner.model.MealRepositoryView;
 import com.example.foodplanner.model.dto.MealsItem;
+import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
+import com.example.foodplanner.model.network.network.MealRemoteDataSourceImpl;
+import com.example.foodplanner.model.network.remotedb.DBHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +37,9 @@ public class Home extends AppCompatActivity {
     DrawerLayout drawerLayout;
     BottomNavigationView navigationView;
     NavController navController;
+    FirebaseAuth firebaseAuth;
     public boolean isGuestMode = false;
+    private MealRepositoryView mealRepositoryView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +50,8 @@ public class Home extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey("guestMode")) {
             isGuestMode = extras.getBoolean("guestMode", false);
+
+
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -54,6 +66,12 @@ public class Home extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController,appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView,navController);
+        mealRepositoryView = MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(), MealLocalDataSourceImpl.getInstance(this));
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            new DBHelper().getAllFavorite(this);
+            new DBHelper().getAllFavoriteWeelPlan(this);
+        }
     }
 
     @Override
@@ -66,13 +84,25 @@ public class Home extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_logout) {
+            clearLocalFavoriteData();
+            clearLocalCalendarData();
+
             FirebaseAuth.getInstance().signOut();
+
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void clearLocalFavoriteData() {
+        mealRepositoryView.deleteAllTheFavoriteList();
+    }
+
+    private void clearLocalCalendarData() {
+        mealRepositoryView.deleteAllTheCalenderList();
     }
 
     @Override
@@ -108,10 +138,13 @@ public class Home extends AppCompatActivity {
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Close the dialog
                 dialog.dismiss();
             }
         });
         builder.create().show();
+    }
+
+    public boolean isGuestMode() {
+        return isGuestMode;
     }
 }

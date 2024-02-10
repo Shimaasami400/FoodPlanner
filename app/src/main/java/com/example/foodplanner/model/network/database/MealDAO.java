@@ -45,4 +45,14 @@ public interface MealDAO {
     void insertWeekPlanMealToCalender(WeekPlan weekPlan);
     @Delete
     void deleteWeekPlanMealFromCalender(WeekPlan weekPlan);
+
+
+    //Remote DB
+    @Query("DELETE FROM weekplan")
+    void deleteAllTheCalenderList();
+
+    @Query("DELETE FROM meals")
+    void deleteAllTheFavoriteList();
+
+
 }

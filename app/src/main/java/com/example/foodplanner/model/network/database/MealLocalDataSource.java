@@ -22,4 +22,9 @@ public interface MealLocalDataSource {
     void insertWeekPlanMealToCalender(WeekPlan weekPlan);
     void deleteWeekPlanMealFromCalender(WeekPlan weekPlan);
     public Single<List<WeekPlan>> getMealsForDate(String date);
+
+    public void deleteAllTheCalenderList();
+    public void deleteAllTheFavoriteList();
+
+
 }

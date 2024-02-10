@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.foodplanner.Home;
 import com.example.foodplanner.R;
 import com.example.foodplanner.mealdetail.presenter.MealDetailPresenterImp;
 import com.example.foodplanner.mealdetail.presenter.MealDetailPresenterView;
@@ -66,11 +67,24 @@ public class MealDetailsFragment extends Fragment implements MealDetailView ,OnD
     private YouTubePlayerView youTubePlayerView;
     private MealRepositoryView mealRepositoryView;
     private OnDetailItemClickListener onDetailItemClickListener;
+    private Home homeActivity;
 
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof Home) {
+            homeActivity = (Home) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement Home interface");
+        }
+    }
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getActivity() != null) {
+            homeActivity = (Home) getActivity();
+        }
     }
 
     @Override
@@ -102,15 +116,18 @@ public class MealDetailsFragment extends Fragment implements MealDetailView ,OnD
 
 
         addToFavImage.setOnClickListener(v -> {
-            mealDetailPresenterView.addToFav(mealsItem);
-            addToFavImage.setImageResource(R.drawable.fullheart);
+            if (homeActivity.isGuestMode()) {
+                homeActivity.showGuestModeAlert();
+            } else {
+                mealDetailPresenterView.addToFav(mealsItem);
+            }
         });
         addToCalender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final boolean isGuestMode = false;// getActivity() instanceof Home && ((Home) getActivity()).checkGuestMode();
-                if (isGuestMode) {
-                  //  showGuestModeAlert();
+                final boolean isGuestMode = false;
+                if (homeActivity.isGuestMode()) {
+                    homeActivity.showGuestModeAlert();
                 } else {
                     Calendar calendar = Calendar.getInstance();
                     int year = calendar.get(Calendar.YEAR);
@@ -146,7 +163,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailView ,OnD
             }
         });
 
-        // Show item details
+
         showItemDetailData(mealsItem);
 
         return view;
@@ -154,21 +171,17 @@ public class MealDetailsFragment extends Fragment implements MealDetailView ,OnD
 
     @Override
     public void showItemDetailData(MealsItem mealsItem) {
-        // Update UI with meal details
         tvItemName.setText(mealsItem.getStrMeal());
         tvItemCountry.setText(mealsItem.getStrArea());
         tvItemCategory.setText(mealsItem.getStrCategory());
         tvProcedures.setText(mealsItem.getStrInstructions());
-        // Load image
         Glide.with(requireActivity()).load(mealsItem.getStrMealThumb()).into(itemImage);
 
-        // Pass ingredients data to adapter
         ingridentsAdapter.setMealItemDetailList(GeneratingIngridentsArrayLists.getIngridentsArray(mealsItem));
     }
 
     @Override
     public void addToFav(MealsItem mealsItem) {
-        // Add meal to favorites
         mealRepositoryView.insertMeal(mealsItem);
     }
 
