@@ -1,20 +1,16 @@
 package com.example.foodplanner.mealdetail.view;
 
-import static android.provider.Settings.System.DATE_FORMAT;
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.foodplanner.Home;
+import com.example.foodplanner.home.view.Home;
 import com.example.foodplanner.R;
 import com.example.foodplanner.mealdetail.presenter.MealDetailPresenterImp;
 import com.example.foodplanner.mealdetail.presenter.MealDetailPresenterView;
@@ -41,7 +37,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -167,6 +162,11 @@ public class MealDetailsFragment extends Fragment implements MealDetailView ,OnD
         showItemDetailData(mealsItem);
 
         return view;
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        youTubePlayerView.release();
     }
 
     @Override

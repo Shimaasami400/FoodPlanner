@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -117,6 +118,14 @@ public class CalenderFragment extends Fragment implements WeekPlanMealView, OnWe
         weekPlanMealPresenterView.deleteMeal(weekPlan);
         Toast.makeText(requireActivity(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onWeekPlanMealClick(WeekPlan weekPlan) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("weekPlan", weekPlan);
+        Navigation.findNavController(requireView()).navigate(R.id.action_calenderFragment2_to_listDetailFragment, bundle);
+    }
+
     private String getStringFromDate(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         return format.format(date);

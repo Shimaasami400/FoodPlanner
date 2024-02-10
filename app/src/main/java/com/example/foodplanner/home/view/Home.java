@@ -1,28 +1,25 @@
-package com.example.foodplanner;
+package com.example.foodplanner.home.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.foodplanner.R;
+import com.example.foodplanner.login.Login;
 import com.example.foodplanner.model.MealRepositoryImpl;
 import com.example.foodplanner.model.MealRepositoryView;
 import com.example.foodplanner.model.dto.MealsItem;
@@ -30,7 +27,6 @@ import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
 import com.example.foodplanner.model.network.network.MealRemoteDataSourceImpl;
 import com.example.foodplanner.model.network.remotedb.DBHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Home extends AppCompatActivity {
@@ -76,9 +72,12 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.top_bar, menu);
-        return true;
+        if (!isGuestMode) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.top_bar, menu);
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -33,7 +33,11 @@
         android:id="@+id/calenderFragment2"
         android:name="com.example.foodplanner.weekplan.view.CalenderFragment"
         android:label="Calender"
-        tools:layout="@layout/fragment_calender" />
+        tools:layout="@layout/fragment_calender" >
+        <action
+            android:id="@+id/action_calenderFragment2_to_listDetailFragment"
+            app:destination="@id/listDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment2"
         android:name="com.example.foodplanner.search.view.SearchFragment"
@@ -115,5 +119,8 @@
         <argument
             android:name="search_to_meal_detail"
             app:argType="com.example.foodplanner.model.dto.MealsItem" />
+        <argument
+            android:name="calender_to_listdetail"
+            app:argType="com.example.foodplanner.model.dto.WeekPlan" />
     </fragment>
 </navigation>

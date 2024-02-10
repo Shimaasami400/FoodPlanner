@@ -1,11 +1,14 @@
 package com.example.foodplanner.home.view;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.Lottie;
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.home.presenter.CategoryMealPresenterImp;
 import com.example.foodplanner.home.presenter.CategoryMealPresenterView;
@@ -46,6 +51,8 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
     private RandomMealPresenterView presenterView;
     private CategoryMealPresenterView categoryMealPresenterView;
     private  LinearLayoutManager linearLayoutManager;
+    private LottieAnimationView lottieAnimationView;
+    private NestedScrollView nestedScrollView;
 
     CardView randomCardView;
 
@@ -62,10 +69,22 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
         image = view.findViewById(R.id.RandomImage);
         mealName = view.findViewById(R.id.tvRandom);
         mealCountry = view.findViewById(R.id.tvCountry);
+        nestedScrollView = view.findViewById(R.id.nestedhome);
+        lottieAnimationView = view.findViewById(R.id.homeAnmi);
         presenterView = new RandomMealPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(), MealLocalDataSourceImpl.getInstance(requireActivity())));
         presenterView.getMeal();
-        return view;
+        if (!isNetworkAvailable()) {
+            nestedScrollView.setVisibility(View.GONE);
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        }else {
+            nestedScrollView.setVisibility(View.VISIBLE);
+            lottieAnimationView.setVisibility(View.GONE);
+        }
 
+
+        presenterView = new RandomMealPresenterImp(this, MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(), MealLocalDataSourceImpl.getInstance(requireActivity())));
+        presenterView.getMeal();
+        return view;
     }
 
     @Override
@@ -78,13 +97,11 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        categoryAdapter = new MealCategoryAdapter(requireActivity(),new ArrayList<>(),this);
+        categoryAdapter = new MealCategoryAdapter(requireActivity(), new ArrayList<>(), this);
         recyclerView.setAdapter(categoryAdapter);
-        categoryMealPresenterView = new CategoryMealPresenterImp(this,MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(),MealLocalDataSourceImpl.getInstance(requireActivity())));
+        categoryMealPresenterView = new CategoryMealPresenterImp(this, MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(), MealLocalDataSourceImpl.getInstance(requireActivity())));
         categoryAdapter.setCategoryClickListener(this);
         categoryMealPresenterView.getCategory();
-
-
     }
 
     @Override
@@ -93,26 +110,22 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
         mealName.setText(item.getStrMeal());
         mealCountry.setText(item.getStrArea());
         Glide.with(requireContext()).load(item.getStrMealThumb()).into(image);
-        randomCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("item", item);
-                Navigation.findNavController(v).navigate(R.id.action_randomMealFragment_to_mealDetailsFragment, bundle);
-            }
+        randomCardView.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("item", item);
+            Navigation.findNavController(v).navigate(R.id.action_randomMealFragment_to_mealDetailsFragment, bundle);
         });
     }
 
     @Override
     public void showErrorMsg(String error) {
-
     }
 
     @Override
     public void showCategoryData(List<CategoriesItem> categoriesItemList) {
         categoryAdapter.setList(categoriesItemList);
         categoryAdapter.notifyDataSetChanged();
-        Toast.makeText(requireActivity(),"Success: "+categoriesItemList.size(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireActivity(), "Success: " + categoriesItemList.size(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -124,7 +137,17 @@ public class HomeFragment extends Fragment implements RandomMealView ,CategoryMe
     public void onCategoryClick(CategoriesItem category) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("category", (Serializable) category);
-        Toast.makeText(requireActivity(), "category"+category, Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireActivity(), "category" + category, Toast.LENGTH_SHORT).show();
         Navigation.findNavController(requireView()).navigate(R.id.action_randomMealFragment_to_categoryDetailsFragment, bundle);
+    }
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            return networkInfo != null && networkInfo.isConnected();
+        }
+        return false;
     }
 }
