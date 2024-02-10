@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">FoodPlanner</string>
+    <string name="signup">Sign Up</string>
+    <string name="name">Display Name\n</string>
+    <string name="register">REGISTER</string>
+    <string name="alreadyhaveaccount">Already have an account?Login</string>
+    <string name="login">Login</string>
+    <string name="btlogin">Login\n</string>
+    <string name="btnLogin">LOGIN</string>
+    <string name="toregister">Don\'t have an account?Register</string>
+    <string name="welcome">Welcome To Dashboard</string>
+    <string name="logout">Logoout</string>
+    <string name="reg">REGISTER</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_frag">FragActivity</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="back">BACK</string>
+
+
+    //Headers
+    <string name="heading_one">Discover Delicious Options</string>
+    <string name="heading_two">Preparing Meals in Advance</string>
+
+    //descriptions
+    <string name="desc_one">Explore an array of delightful dishes tailored to your tastes and preferences.</string>
+    <string name="desc_two">Effortlessly plan and prepare your meals ahead of time.</string>
 </resources>

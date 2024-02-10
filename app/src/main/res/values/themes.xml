@@ -1,9 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.FoodPlanner" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.FoodPlanner" parent="Theme.Material3.DayNight">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/mainOrange</item>
+        <item name="colorPrimaryVariant">@color/orangeBrown</item>
+        <item name="colorOnPrimary">@color/mainBrown</item>
+
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/secondaryOrange</item>
+        <item name="colorSecondaryVariant">@color/secondaryBrown</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:statusBarColor">@color/mainOrange</item>
+
     </style>
 
-    <style name="Theme.FoodPlanner" parent="Base.Theme.FoodPlanner" />
+    <style name="Theme.FoodPlanner" parent="Base.Theme.FoodPlanner" >
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

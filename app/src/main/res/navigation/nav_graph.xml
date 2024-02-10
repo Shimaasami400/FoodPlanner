@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/randomMealFragment">
+
+    <fragment
+        android:id="@+id/randomMealFragment"
+        android:name="com.example.foodplanner.home.view.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_random_meal">
+        <action
+            android:id="@+id/action_randomMealFragment_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+        <action
+            android:id="@+id/action_randomMealFragment_to_categoryDetailsFragment"
+            app:destination="@id/categoryDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealDetailsFragment"
+        android:name="com.example.foodplanner.mealdetail.view.MealDetailsFragment"
+        android:label="Meal Detail"
+        tools:layout="@layout/fragment_meal_details">
+        <argument
+            android:name="meal"
+            app:argType="com.example.foodplanner.model.dto.MealsItem" />
+        <argument
+            android:name="categorydetailnav"
+            app:argType="com.example.foodplanner.model.dto.MealsItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/calenderFragment2"
+        android:name="com.example.foodplanner.weekplan.view.CalenderFragment"
+        android:label="Calender"
+        tools:layout="@layout/fragment_calender" />
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.foodplanner.search.view.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment2_to_ingredientDetailsFragment"
+            app:destination="@id/ingredientDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment2_to_areaDetailsFragment"
+            app:destination="@id/areaDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment2_to_searchByNameFragment"
+            app:destination="@id/searchByNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.foodplanner.favorite.view.FavoriteFragment"
+        android:label="Favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_listDetailFragment"
+            app:destination="@id/listDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryDetailsFragment"
+        android:name="com.example.foodplanner.category.view.CategoryDetailsFragment"
+        android:label="Category Details"
+        tools:layout="@layout/fragment_category_details">
+        <argument
+            android:name="categorydetail"
+            app:argType="com.example.foodplanner.model.dto.CategoriesItem" />
+        <action
+            android:id="@+id/action_categoryDetailsFragment_to_listDetailFragment"
+            app:destination="@id/listDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ingredientDetailsFragment"
+        android:name="com.example.foodplanner.ingredient.view.IngredientDetailsFragment"
+        android:label="Ingredients List">
+        <argument
+            android:name=" ingredient_detail_list"
+            app:argType="com.example.foodplanner.model.dto.IngredientsItem" />
+        <action
+            android:id="@+id/action_ingredientDetailsFragment_to_listDetailFragment"
+            app:destination="@id/listDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/areaDetailsFragment"
+        android:name="com.example.foodplanner.Area.view.AreaDetailsFragment"
+        android:label="Area list" >
+        <argument
+            android:name="area_detail"
+            app:argType="com.example.foodplanner.model.dto.AreaItem" />
+        <action
+            android:id="@+id/action_areaDetailsFragment_to_listDetailFragment"
+            app:destination="@id/listDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchByNameFragment"
+        android:name="com.example.foodplanner.searchbar.view.SearchByNameFragment"
+        android:label="Search By Name"
+        tools:layout="@layout/fragment_search_by_name">
+        <argument
+            android:name="search_by_name"
+            app:argType="com.example.foodplanner.model.dto.MealsItem" />
+        <action
+            android:id="@+id/action_searchByNameFragment_to_listDetailFragment"
+            app:destination="@id/listDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listDetailFragment"
+        android:name="com.example.foodplanner.listsdetail.view.ListDetailFragment"
+        android:label="Meal Detail"
+        tools:layout="@layout/fragment_list_detail" >
+        <argument
+            android:name="list_item_detail"
+            app:argType="com.example.foodplanner.model.dto.MealsDetail" />
+        <argument
+            android:name="search_to_meal_detail"
+            app:argType="com.example.foodplanner.model.dto.MealsItem" />
+    </fragment>
+</navigation>

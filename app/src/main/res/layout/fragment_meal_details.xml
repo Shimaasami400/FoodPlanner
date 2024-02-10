@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context= ".mealdetail.view.MealDetailsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/mealImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_oval="true" />
+
+        <TextView
+            android:id="@+id/textViewMealCateItemDetails"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/txtViewMealNameItemDetails"
+            app:layout_constraintStart_toStartOf="@+id/txtViewMealNameItemDetails"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewMealNameItemDetails"
+             />
+
+        <TextView
+            android:id="@+id/textViewMealCountryItemDetails"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@id/barrier2"
+            app:layout_constraintEnd_toEndOf="@+id/textViewMealCateItemDetails"
+            app:layout_constraintStart_toStartOf="@+id/textViewMealCateItemDetails"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMealCateItemDetails"
+            />
+
+        <ImageView
+            android:id="@+id/imageViewAddToCalendarItemDetails"
+            android:layout_width="72dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/calendar"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewMealCountryItemDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewMealCateItemDetails"
+            app:layout_constraintTop_toTopOf="@+id/textViewMealCateItemDetails" />
+
+        <ImageView
+            android:id="@+id/imageViewAddToFavITemDetails"
+            android:layout_width="36dp"
+            android:layout_height="40dp"
+            android:src="@drawable/favoruite"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewAddToCalendarItemDetails"
+            app:layout_constraintEnd_toStartOf="@+id/textViewMealCateItemDetails"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageViewAddToCalendarItemDetails" />
+
+        <TextView
+            android:id="@+id/txtViewMealNameItemDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:textColor="@color/mainOrange"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/mealImage" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:text="INGREDIENTS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/mainBrown"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/barrier2" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="txtViewMealNameItemDetails,imageViewAddToFavITemDetails,imageViewAddToCalendarItemDetails,textViewMealCountryItemDetails,textViewMealCateItemDetails" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewIngredientsItemDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textView24"
+            tools:itemCount="10"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:orientation="horizontal" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="PROCEDURES"
+            android:textColor="@color/mainBrown"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewIngredientsItemDetails" />
+
+        <TextView
+            android:id="@+id/textViewProcedures"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="bol"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/textView25"/>
+
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/ytPlayer"
+            android:layout_width="328dp"
+            android:layout_height="202dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/textViewProcedures"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="32dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="371dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
