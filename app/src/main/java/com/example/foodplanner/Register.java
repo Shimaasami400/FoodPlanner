@@ -3,7 +3,6 @@ package com.example.foodplanner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodplanner.home.view.Home;
+import com.example.foodplanner.login.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,7 +39,7 @@ public class Register extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(),Home.class);
+            Intent intent = new Intent(getApplicationContext(), Home.class);
             startActivity(intent);
             finish();
         }
@@ -99,7 +100,7 @@ public class Register extends AppCompatActivity {
         tvlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Register.this,Login.class);
+                Intent intent = new Intent(Register.this, Login.class);
                 startActivity(intent);
                 finish();
             }

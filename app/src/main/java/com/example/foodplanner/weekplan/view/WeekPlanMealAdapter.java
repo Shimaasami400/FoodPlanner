@@ -61,6 +61,17 @@ public class WeekPlanMealAdapter extends RecyclerView.Adapter<WeekPlanMealAdapte
                 onWeekPlanMealClickListener.onDeleteItemClick(weekPlanListMealList.get(holder.getAdapterPosition()));
             }
         });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onWeekPlanMealClickListener != null) {
+                    onWeekPlanMealClickListener.onWeekPlanMealClick(weekPlan);
+                }
+            }
+        });
+
+
     }
 
     @Override

@@ -34,6 +34,7 @@ import com.example.foodplanner.model.dto.ListsDetails;
 import com.example.foodplanner.model.dto.MealsDetail;
 import com.example.foodplanner.model.dto.MealsDetailResponse;
 import com.example.foodplanner.model.dto.MealsItem;
+import com.example.foodplanner.model.dto.WeekPlan;
 import com.example.foodplanner.model.network.database.MealLocalDataSourceImpl;
 import com.example.foodplanner.model.network.network.MealRemoteDataSourceImpl;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -61,6 +62,7 @@ public class ListDetailFragment extends Fragment implements ListDetailView, OnMe
     private ListsDetails listingredientDetails;
     private MealsItem searchByName;
     private MealsItem favMeal;
+    private WeekPlan weekPlanMeal;
     private Context context;
     private ListDetailAdapter listDetailAdapter;
     private RecyclerView recyclerView;
@@ -115,11 +117,12 @@ public class ListDetailFragment extends Fragment implements ListDetailView, OnMe
         listingredientDetails =(ListsDetails) getArguments().getSerializable("ingredientDetails");
         searchByName = (MealsItem) getArguments().getSerializable("SearchByName");
         favMeal = (MealsItem) getArguments().getSerializable("Favorite");
+        weekPlanMeal = (WeekPlan) getArguments().getSerializable("weekPlan");
 
 
         Single<MealsDetailResponse> mealsDetailSingle = listDetailPresenterView.getMealDetail(listsDetails != null ? listsDetails.getIdMeal() :
                 listAreaDetails != null ? listAreaDetails.getIdMeal() :
-                        listingredientDetails != null ? listingredientDetails.getIdMeal() : searchByName != null ? searchByName.getIdMeal() :favMeal != null ? favMeal.getIdMeal() :"");
+                        listingredientDetails != null ? listingredientDetails.getIdMeal() : searchByName != null ? searchByName.getIdMeal() :favMeal != null ? favMeal.getIdMeal() :weekPlanMeal != null ? weekPlanMeal.getIdMeal() :"");
         Log.i("TAG", "mealsDetailSingle = " + mealsDetailSingle);
 
         mealsDetailSingle.subscribeOn(Schedulers.io())
@@ -158,6 +161,12 @@ public class ListDetailFragment extends Fragment implements ListDetailView, OnMe
                 });
 
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        youTubePlayerView.release();
     }
 
     @Override

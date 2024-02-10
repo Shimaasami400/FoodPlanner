@@ -16,7 +16,7 @@
             android:name=".onboard.OnBoardingActivity"
             android:exported="false" />
         <activity
-            android:name=".Splash"
+            android:name=".splashscreen.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,7 @@
 
         </activity>
         <activity
-            android:name=".Home"
+            android:name=".home.view.Home"
             android:exported="true"
             android:label="@string/title_activity_frag"
             android:theme="@style/Theme.FoodPlanner" >
@@ -37,7 +37,7 @@
             android:name=".Register"
             android:exported="true" />
         <activity
-            android:name=".Login"
+            android:name=".login.Login"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

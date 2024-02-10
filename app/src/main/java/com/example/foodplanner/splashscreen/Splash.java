@@ -1,4 +1,4 @@
-package com.example.foodplanner;
+package com.example.foodplanner.splashscreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.foodplanner.R;
+import com.example.foodplanner.Register;
 import com.example.foodplanner.onboard.OnBoardingActivity;
 
 public class Splash extends AppCompatActivity {

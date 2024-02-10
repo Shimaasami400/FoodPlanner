@@ -1,11 +1,14 @@
 package com.example.foodplanner.search.view;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.R;
 import com.example.foodplanner.model.MealRepositoryImpl;
 import com.example.foodplanner.model.dto.AreaItem;
@@ -51,6 +55,8 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
     private IngredientSearchAdapter ingredientSearchAdapter;
     private AreaSearchAdapter areaSearchAdapter;
     private CardView  ingredientCardView;
+    private LottieAnimationView lottieAnimationView;
+    private NestedScrollView nestedScrollView;
 
 
     @Override
@@ -65,9 +71,19 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ingredientsPresenterView = new IngredientsPresenterImp(this, MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(), MealLocalDataSourceImpl.getInstance(requireActivity())));
         ingredientsPresenterView.getIngredient();
+        nestedScrollView = view.findViewById(R.id.searchnested);
+        lottieAnimationView = view.findViewById(R.id.searchAnmi);
 
         areasPresenterView = new AreasPresenterImp(this, MealRepositoryImpl.getInstance(MealRemoteDataSourceImpl.getInstance(),MealLocalDataSourceImpl.getInstance(requireActivity())));
         areasPresenterView.getArea();
+
+        if (!isNetworkAvailable()) {
+            nestedScrollView.setVisibility(View.GONE);
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        }else {
+            nestedScrollView.setVisibility(View.VISIBLE);
+            lottieAnimationView.setVisibility(View.GONE);
+        }
         return view;
     }
 
@@ -109,7 +125,6 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
             if (IngredientsItemList != null) {
                 ingredientSearchAdapter.setList(IngredientsItemList);
                 ingredientSearchAdapter.notifyDataSetChanged();
-                Toast.makeText(requireActivity(), "Success: " + IngredientsItemList.size(), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(requireActivity(), "Ingredients list is null", Toast.LENGTH_SHORT).show();
             }
@@ -125,7 +140,6 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
         if (AreaItemList != null) {
             areaSearchAdapter.setList(AreaItemList);
             areaSearchAdapter.notifyDataSetChanged();
-            Toast.makeText(requireActivity(), "Success: " + AreaItemList.size(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(requireActivity(), "Ingredients list is null", Toast.LENGTH_SHORT).show();
         }
@@ -150,5 +164,14 @@ public class SearchFragment extends Fragment implements IngredientsView,AreasVie
         areaBundle.putSerializable("area", (Serializable) areaItem);
         Toast.makeText(requireActivity(), "ingredient"+areaItem, Toast.LENGTH_SHORT).show();
         Navigation.findNavController(requireView()).navigate(R.id.action_searchFragment2_to_areaDetailsFragment, areaBundle);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            return networkInfo != null && networkInfo.isConnected();
+        }
+        return false;
     }
 }
